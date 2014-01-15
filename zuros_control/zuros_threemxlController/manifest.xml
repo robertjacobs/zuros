@@ -1,0 +1,16 @@
+<package>
+  <description brief="zuros_threemxlController">
+
+     zuros_threemxlController
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_threemxlController</url>
+  <depend package="std_msgs"/>
+  <depend package="threemxl"/>  
+  <depend package="roscpp"/>
+</package>
+
+
