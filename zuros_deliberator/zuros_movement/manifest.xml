@@ -1,0 +1,17 @@
+<package>
+  <description brief="zuros_movement">
+
+     zuros_movement
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_movement</url>
+  <depend package="sensor_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="zuros_threemxlController"/>
+</package>
+
+
