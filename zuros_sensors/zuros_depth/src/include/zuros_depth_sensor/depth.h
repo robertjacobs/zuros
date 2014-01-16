@@ -33,10 +33,6 @@
 // point cloud
 #include <pcl/point_types.h>
 #include <pcl_ros/point_cloud.h>
-#include <pcl/visualization/cloud_viewer.h>
-#include <pcl/visualization/pcl_visualizer.h>
-#include <pcl/io/io.h>
-#include <pcl/io/pcd_io.h>
 
 //For laser scanner functionality
 #include <sensor_msgs/LaserScan.h>
@@ -58,8 +54,9 @@ class XtionToLaser
 		ros::Publisher laser_publisher_;
 
 	public:
-		XtionToLaser(ros::NodeHandle nh) : node_handle_(nh);
+		XtionToLaser(ros::NodeHandle nh);
 		~XtionToLaser();
+		void init();
 
 		void convertColorImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image);
 		void inputCallback(const sensor_msgs::Image::ConstPtr& color_image_msg, const sensor_msgs::PointCloud2::ConstPtr& pointcloud_msg);
