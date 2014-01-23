@@ -4,10 +4,10 @@
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/_catkin_empty_exported_target.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/clean_test_results.dir
-/home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/depth.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/doxygen.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/gtest/CMakeFiles/gtest.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/gtest/CMakeFiles/gtest_main.dir
+/home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/image_test.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/rosbuild_clean-test-results.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/rosbuild_precompile.dir
 /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles/rosbuild_premsgsrvgen.dir

@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "zuros_threemxl/threemxlController.h"
+#include "zuros_threemxl_controller/threemxlController.h"
 
 int main(int argc, char **argv)
 {
@@ -23,18 +23,9 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     // create an instance of the subscriber class
-    threemxlController controller(n);
+    zurosBase base(n);
 
-    // initialize the subscribers (for details see comments in class)
-    controller.init();
-	//controller.spin();
-
-    /**
-    * ros::spin() will enter a loop, pumping callbacks. With this version, all
-    * callbacks will be called from within this thread (the main one). ros::spin()
-    * will exit when Ctrl-C is pressed, or the node is shutdown by the master.
-    */
-    ros::spin();
+	base.spin();
 
     return 0;
 }

@@ -46,6 +46,89 @@ include CMakeFiles/depth.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/depth.dir/flags.make
 
+CMakeFiles/depth.dir/src/depth_main.cpp.o: CMakeFiles/depth.dir/flags.make
+CMakeFiles/depth.dir/src/depth_main.cpp.o: ../src/depth_main.cpp
+CMakeFiles/depth.dir/src/depth_main.cpp.o: ../manifest.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/depth.dir/src/depth_main.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/depth.dir/src/depth_main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/depth.dir/src/depth_main.cpp.o -c /home/robot/git/zuros/zuros_sensors/zuros_depth/src/depth_main.cpp
+
+CMakeFiles/depth.dir/src/depth_main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/depth.dir/src/depth_main.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/robot/git/zuros/zuros_sensors/zuros_depth/src/depth_main.cpp > CMakeFiles/depth.dir/src/depth_main.cpp.i
+
+CMakeFiles/depth.dir/src/depth_main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/depth.dir/src/depth_main.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/robot/git/zuros/zuros_sensors/zuros_depth/src/depth_main.cpp -o CMakeFiles/depth.dir/src/depth_main.cpp.s
+
+CMakeFiles/depth.dir/src/depth_main.cpp.o.requires:
+.PHONY : CMakeFiles/depth.dir/src/depth_main.cpp.o.requires
+
+CMakeFiles/depth.dir/src/depth_main.cpp.o.provides: CMakeFiles/depth.dir/src/depth_main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/src/depth_main.cpp.o.provides.build
+.PHONY : CMakeFiles/depth.dir/src/depth_main.cpp.o.provides
+
+CMakeFiles/depth.dir/src/depth_main.cpp.o.provides.build: CMakeFiles/depth.dir/src/depth_main.cpp.o
+
 CMakeFiles/depth.dir/src/depth.cpp.o: CMakeFiles/depth.dir/flags.make
 CMakeFiles/depth.dir/src/depth.cpp.o: ../src/depth.cpp
 CMakeFiles/depth.dir/src/depth.cpp.o: ../manifest.xml
@@ -108,7 +191,7 @@ CMakeFiles/depth.dir/src/depth.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
 CMakeFiles/depth.dir/src/depth.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/depth.dir/src/depth.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
 CMakeFiles/depth.dir/src/depth.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/depth.dir/src/depth.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/depth.dir/src/depth.cpp.o -c /home/robot/git/zuros/zuros_sensors/zuros_depth/src/depth.cpp
 
@@ -131,11 +214,13 @@ CMakeFiles/depth.dir/src/depth.cpp.o.provides.build: CMakeFiles/depth.dir/src/de
 
 # Object files for target depth
 depth_OBJECTS = \
+"CMakeFiles/depth.dir/src/depth_main.cpp.o" \
 "CMakeFiles/depth.dir/src/depth.cpp.o"
 
 # External object files for target depth
 depth_EXTERNAL_OBJECTS =
 
+../bin/depth: CMakeFiles/depth.dir/src/depth_main.cpp.o
 ../bin/depth: CMakeFiles/depth.dir/src/depth.cpp.o
 ../bin/depth: CMakeFiles/depth.dir/build.make
 ../bin/depth: CMakeFiles/depth.dir/link.txt
@@ -146,6 +231,7 @@ depth_EXTERNAL_OBJECTS =
 CMakeFiles/depth.dir/build: ../bin/depth
 .PHONY : CMakeFiles/depth.dir/build
 
+CMakeFiles/depth.dir/requires: CMakeFiles/depth.dir/src/depth_main.cpp.o.requires
 CMakeFiles/depth.dir/requires: CMakeFiles/depth.dir/src/depth.cpp.o.requires
 .PHONY : CMakeFiles/depth.dir/requires
 

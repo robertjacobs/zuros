@@ -1,22 +1,35 @@
 // ROS includes
 #include <ros/ros.h>
+#include <zuros_depth_sensor/depth.h>
 
-#include <zuros_depth/depth.h>
+XtionToLaser::XtionToLaser(ros::NodeHandle nh)
+{
+	node_handle_ = nh;
+}
 
-XtionToLaser::XtionToLaser(ros::NodeHandle nh) : node_handle_(nh)
+// Destructor
+XtionToLaser::~XtionToLaser()
+{
+	if (it_ != 0)
+        delete it_;
+	if (sync_input_ != 0)
+    	delete sync_input_;
+}
+
+void XtionToLaser::init()
 {
 	it_ = 0;
 	sync_input_ = 0;
 
 	//Subscribe to image color and depth points
 	it_ = new image_transport::ImageTransport(node_handle_);
-	colorimage_sub_.subscribe(*it_, "/camera/rgb/image_color", 1);
+	colorimage_sub_.subscribe(*it_, "/camera/rgb/image_raw", 1);
 	pointcloud_sub_.subscribe(node_handle_, "/camera/depth_registered/points", 1);
 
 	// Synchronize
 	sync_input_ = new message_filters::Synchronizer<message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::PointCloud2> >(30);
 	sync_input_->connectInput(colorimage_sub_, pointcloud_sub_);
-	sync_input_->registerCallback(boost::bind(&KinectLaserScannerNode::inputCallback, this, _1, _2));
+	sync_input_->registerCallback(boost::bind(&XtionToLaser::inputCallback, this, _1, _2));
 
 	/**
 	* The advertise() function is how you tell ROS that you want to
@@ -41,15 +54,6 @@ XtionToLaser::XtionToLaser(ros::NodeHandle nh) : node_handle_(nh)
 	laser_publisher_ = node_.advertise<sensor_msgs::LaserScan>("XtionToLaser", 10);
 }
 
-// Destructor
-~XtionToLaser::XtionToLaser()
-{
-	if (it_ != 0)
-        delete it_;
-	if (sync_input_ != 0)
-    	delete sync_input_;
-}
-
 void XtionToLaser::convertColorImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image)
 {
 	try
@@ -60,6 +64,7 @@ void XtionToLaser::convertColorImageMessageToMat(const sensor_msgs::Image::Const
 	{
 	    ROS_ERROR("KinectLaserScanner: cv_bridge exception: %s", e.what());
 	}
+	
 	image = image_ptr->image;
 }
 
@@ -99,7 +104,7 @@ void XtionToLaser::inputCallback(const sensor_msgs::Image::ConstPtr& color_image
     msg.range_max = 8.5;                 // 3.5 meters
 
     msg.ranges.resize(cloud->width, 0);
-    msg.intensities;                // If your device does not provide intensities, please leave the array empty.
+    //msg.intensities;                // If your device does not provide intensities, please leave the array empty.
 
     // range we want to look at is 238 - 242 (5 pixels with 240 as center)
     float total;
@@ -112,7 +117,7 @@ void XtionToLaser::inputCallback(const sensor_msgs::Image::ConstPtr& color_image
             //matrix indices: row y, column x!
 
             if(point.z == point.z && point.x == point.x)        //test not a number
-                    total += sqrt(point.z*point.z + point.x * point.x);
+                total += sqrt(point.z*point.z + point.x * point.x);
         }
         msg.ranges[u]=total/5.f;
     }

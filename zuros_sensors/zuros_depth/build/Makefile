@@ -215,19 +215,6 @@ clean_test_results/fast:
 .PHONY : clean_test_results/fast
 
 #=============================================================================
-# Target rules for targets named depth
-
-# Build rule for target.
-depth: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 depth
-.PHONY : depth
-
-# fast build rule for target.
-depth/fast:
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/build
-.PHONY : depth/fast
-
-#=============================================================================
 # Target rules for targets named doxygen
 
 # Build rule for target.
@@ -239,6 +226,19 @@ doxygen: cmake_check_build_system
 doxygen/fast:
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
 .PHONY : doxygen/fast
+
+#=============================================================================
+# Target rules for targets named image_test
+
+# Build rule for target.
+image_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 image_test
+.PHONY : image_test
+
+# fast build rule for target.
+image_test/fast:
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/build
+.PHONY : image_test/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_clean-test-results
@@ -422,29 +422,29 @@ gtest_main/fast:
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
-src/depth.o: src/depth.cpp.o
-.PHONY : src/depth.o
+src/git.o: src/git.cpp.o
+.PHONY : src/git.o
 
 # target to build an object file
-src/depth.cpp.o:
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/src/depth.cpp.o
-.PHONY : src/depth.cpp.o
+src/git.cpp.o:
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/src/git.cpp.o
+.PHONY : src/git.cpp.o
 
-src/depth.i: src/depth.cpp.i
-.PHONY : src/depth.i
+src/git.i: src/git.cpp.i
+.PHONY : src/git.i
 
 # target to preprocess a source file
-src/depth.cpp.i:
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/src/depth.cpp.i
-.PHONY : src/depth.cpp.i
+src/git.cpp.i:
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/src/git.cpp.i
+.PHONY : src/git.cpp.i
 
-src/depth.s: src/depth.cpp.s
-.PHONY : src/depth.s
+src/git.s: src/git.cpp.s
+.PHONY : src/git.s
 
 # target to generate assembly for a file
-src/depth.cpp.s:
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/src/depth.cpp.s
-.PHONY : src/depth.cpp.s
+src/git.cpp.s:
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/src/git.cpp.s
+.PHONY : src/git.cpp.s
 
 # Help Target
 help:
@@ -458,9 +458,9 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... _catkin_empty_exported_target"
 	@echo "... clean_test_results"
-	@echo "... depth"
 	@echo "... doxygen"
 	@echo "... edit_cache"
+	@echo "... image_test"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -480,9 +480,9 @@ help:
 	@echo "... tests"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... src/depth.o"
-	@echo "... src/depth.i"
-	@echo "... src/depth.s"
+	@echo "... src/git.o"
+	@echo "... src/git.i"
+	@echo "... src/git.s"
 .PHONY : help
 
 

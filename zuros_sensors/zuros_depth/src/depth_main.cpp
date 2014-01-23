@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "zuros_depth/depth.h"
+#include "zuros_depth_sensor/depth.h"
 
 int main(int argc, char **argv)
 {
@@ -23,10 +23,10 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     // create an instance of the subscriber class
-    threemxlController controller(n);
+    XtionToLaser xtionToLaser(n);
 
     // initialize the subscribers (for details see comments in class)
-    controller.init();
+    xtionToLaser.init();
 	//controller.spin();
 
     /**

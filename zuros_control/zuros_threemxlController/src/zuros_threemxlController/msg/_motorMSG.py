@@ -66,8 +66,8 @@ int32 right_speed
     try:
       _x = self
       buff.write(_struct_4i.pack(_x.left_accel, _x.left_speed, _x.right_accel, _x.right_speed))
-    except struct.error as se: self._check_types(se)
-    except TypeError as te: self._check_types(te)
+    except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
+    except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
   def deserialize(self, str):
     """
@@ -94,8 +94,8 @@ int32 right_speed
     try:
       _x = self
       buff.write(_struct_4i.pack(_x.left_accel, _x.left_speed, _x.right_accel, _x.right_speed))
-    except struct.error as se: self._check_types(se)
-    except TypeError as te: self._check_types(te)
+    except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
+    except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
   def deserialize_numpy(self, str, numpy):
     """

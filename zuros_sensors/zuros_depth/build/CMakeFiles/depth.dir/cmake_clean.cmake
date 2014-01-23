@@ -1,4 +1,5 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/depth.dir/src/depth_main.cpp.o"
   "CMakeFiles/depth.dir/src/depth.cpp.o"
   "../bin/depth.pdb"
   "../bin/depth"

@@ -236,48 +236,13 @@ clean: CMakeFiles/clean_test_results.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/depth.dir
-
-# All Build rule for target.
-CMakeFiles/depth.dir/all: CMakeFiles/rosbuild_precompile.dir/all
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/depend
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  1
-	@echo "Built target depth"
-.PHONY : CMakeFiles/depth.dir/all
-
-# Include target in all.
-all: CMakeFiles/depth.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/depth.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/depth.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles 0
-.PHONY : CMakeFiles/depth.dir/rule
-
-# Convenience name for target.
-depth: CMakeFiles/depth.dir/rule
-.PHONY : depth
-
-# clean rule for target.
-CMakeFiles/depth.dir/clean:
-	$(MAKE) -f CMakeFiles/depth.dir/build.make CMakeFiles/depth.dir/clean
-.PHONY : CMakeFiles/depth.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/depth.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/doxygen.dir
 
 # All Build rule for target.
 CMakeFiles/doxygen.dir/all:
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/depend
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  1
 	@echo "Built target doxygen"
 .PHONY : CMakeFiles/doxygen.dir/all
 
@@ -299,6 +264,41 @@ CMakeFiles/doxygen.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/doxygen.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/image_test.dir
+
+# All Build rule for target.
+CMakeFiles/image_test.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/depend
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  4
+	@echo "Built target image_test"
+.PHONY : CMakeFiles/image_test.dir/all
+
+# Include target in all.
+all: CMakeFiles/image_test.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/image_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/image_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles 0
+.PHONY : CMakeFiles/image_test.dir/rule
+
+# Convenience name for target.
+image_test: CMakeFiles/image_test.dir/rule
+.PHONY : image_test
+
+# clean rule for target.
+CMakeFiles/image_test.dir/clean:
+	$(MAKE) -f CMakeFiles/image_test.dir/build.make CMakeFiles/image_test.dir/clean
+.PHONY : CMakeFiles/image_test.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/image_test.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -698,7 +698,7 @@ gtest/preinstall:
 gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  3
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  2
 	@echo "Built target gtest"
 .PHONY : gtest/CMakeFiles/gtest.dir/all
 
@@ -729,7 +729,7 @@ clean: gtest/CMakeFiles/gtest.dir/clean
 gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_sensors/zuros_depth/build/CMakeFiles  3
 	@echo "Built target gtest_main"
 .PHONY : gtest/CMakeFiles/gtest_main.dir/all
 

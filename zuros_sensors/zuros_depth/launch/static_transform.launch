@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>  
+  <!-- static transforms -->
+  <node pkg="tf" type="static_transform_publisher" name="link_rgb_optical_frame2laserscan_broadcaster" args="0 0 0 1.57079632679 -1.57079632679 3.14159265359 camera_rgb_optical_frame laser_scan 10" />
+
+</launch>
