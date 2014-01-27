@@ -1,0 +1,21 @@
+<package>
+  <description brief="zuros_motor_transformation">
+
+     zuros_motor_transformation
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_motor_transformation</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="tf"/>
+  <depend package="rosbag"/>
+  <depend package="geometry_msgs"/>
+  <depend package="std_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="zuros_threemxlController"/>
+</package>
+
+

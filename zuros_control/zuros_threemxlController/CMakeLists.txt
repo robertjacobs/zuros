@@ -32,8 +32,5 @@ rosbuild_genmsg()
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-#rosbuild_add_executable(threemxlController src/threemxlController_main.cpp
-#                                           src/threemxlController.cpp)
-
-rosbuild_add_executable(wouter2 src/dpr2_base_main.cpp
-							   src/dpr2_base.cpp)
+rosbuild_add_executable(threemxlController src/threemxlController_main.cpp
+                                           src/threemxlController.cpp)

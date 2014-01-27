@@ -1,52 +1,70 @@
 #include "zuros_threemxl_controller/threemxlController.h"
 #include <threemxl/C3mxlROS.h>
 #include <threemxl/LxFTDI.h>
+#include <threemxl/dxlassert.h>
 #define CLIP(x, l, u) ((x)<(l))?(l):((x)>(u))?(u):(x)
 
-void zurosBase::init()
+void DPR2Base::init()
 {
 	ROS_INFO("Initializing base");
 
 	// Subscript to command topic
-	vel_sub_ = nh_.subscribe("/movement", 10, &zurosBase::velocityCallback, this);
+	vel_sub_ = nh_.subscribe("movement", 10, &DPR2Base::velocityCallback, this);
 	odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
 
-	CDxlConfig *config = new CDxlConfig();
-	_serial_port.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
-    _serial_port.set_speed(LxSerial::S921600);
+	wheel_diameter_ = 0.297;
+	wheel_base_ = 0.40;
 
-	_motor_left = new C3mxl();
-	_motor_left->setSerialPort(&_serial_port);
-	_motor_left->setConfig(config->setID(106));
-	_motor_left->set3MxlMode(POSITION_MODE);
+	ros::Rate init_rate(1);
+
+	CDxlConfig *config_left_motor = new CDxlConfig();
+	_serial_port.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
+     _serial_port.set_speed(LxSerial::S921600);
+
+	if(_serial_port.is_port_open())
+	{
+		ROS_INFO("SERIAL PORT IS OPEN");
+	}
 
 	// Initialize left motor
-	ros::Rate init_rate(1);
-	while (ros::ok() && _motor_left->init() != DXL_SUCCESS)
+	left_motor_ = new C3mxl();
+	left_motor_->setSerialPort(&_serial_port);
+	config_left_motor->setID(106);
+	left_motor_->setConfig(config_left_motor);
+
+	DXL_SAFE_CALL(left_motor_->set3MxlMode(SPEED_MODE));
+
+	ROS_INFO("Left motor mode set");
+
+	while (ros::ok() && left_motor_->init() != DXL_SUCCESS)
 	{
 		ROS_WARN_ONCE("Couldn't initialize left wheel motor, will continue trying every second");
 		init_rate.sleep();
 	}
 
-	_motor_right = new C3mxl();
-	_motor_right->setSerialPort(&_serial_port);
-	_motor_right->setConfig(config->setID(107));
-	_motor_right->set3MxlMode(POSITION_MODE);
-
-	wheel_diameter_ = 0.297;
-	wheel_base_ = 0.40;
-
 	// Initialize right motor
-	while (ros::ok() && _motor_right->init() != DXL_SUCCESS)
+	CDxlConfig *config_right_motor = new CDxlConfig();
+	right_motor_ = new C3mxl();
+	right_motor_->setSerialPort(&_serial_port);
+	config_right_motor->setID(107);
+	right_motor_->setConfig(config_right_motor);
+
+	while (ros::ok() && right_motor_->set3MxlMode(SPEED_MODE) != DXL_SUCCESS)
+	{
+		ROS_WARN_ONCE("Couldn't initialize right wheel motor mode, will continue trying every second");
+		init_rate.sleep();
+	}
+
+	ROS_INFO("Right motor mode set");
+
+	while (ros::ok() && right_motor_->init() != DXL_SUCCESS)
 	{
 		ROS_WARN_ONCE("Couldn't initialize right wheel motor, will continue trying every second");
 		init_rate.sleep();
 	}
-
-	delete config;
 }
 
-void zurosBase::spin()
+void DPR2Base::spin()
 {
 	ROS_INFO("Spinning");
 	ros::Rate r(100);
@@ -57,14 +75,16 @@ void zurosBase::spin()
 		odometryPublish();
 		r.sleep();
 	}
+
+	_serial_port.port_close();
 }
 
-void zurosBase::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
+void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 {
 	// Base is nonholonomic, warn if sent a command we can't execute
 	if (msg->linear.y || msg->linear.z || msg->angular.x || msg->angular.y)
 	{
-		ROS_WARN("I'm afraid I can't do that, Dave.");
+		ROS_WARN("It is not possible for me to translate this command to the robot - maybe you set the base type in navigation config to holonomic instead of nonholonomic or vice versa?");
 		return;
 	}
 
@@ -81,24 +101,21 @@ void zurosBase::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 	double vel_left    = vel_linear - vel_angular;
 	double vel_right   = vel_linear + vel_angular;
 
-	ROS_INFO("%f", vel_left);
-	
 	// Actuate
-	_motor_left->setSpeed(vel_left);
-	_motor_right->setSpeed(vel_right);
+	left_motor_->setSpeed(vel_left);
+	right_motor_->setSpeed(vel_right);
 
-	//ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
-	//ROS_INFO("Base velocity set to [" << vel_left << "," << vel_right);
+	ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
 }
 
 // reads the current change in wheel and publish as odometry
-void zurosBase::odometryPublish()
+void DPR2Base::odometryPublish()
 {
-	_motor_left->getState();
-	_motor_right->getState();
+	left_motor_->getState();
+	right_motor_->getState();
 
-	double left = _motor_left->presentSpeed();
-	double right = _motor_right->presentSpeed();
+	double left = left_motor_->presentSpeed();
+	double right = right_motor_->presentSpeed();
 
 	vx_ = (wheel_diameter_ / 4) * (left + right);
 	vth_ = ((wheel_diameter_ / 2) / wheel_base_) * (right - left);
@@ -156,4 +173,3 @@ void zurosBase::odometryPublish()
 
 	last_time_ = current_time_;
 }
-

@@ -19,6 +19,8 @@ nav_msgs/Odometry.h
 -
 tf/transform_broadcaster.h
 -
+threemxl/LxFTDI.h
+-
 
 /home/robot/git/zuros/zuros_control/zuros_threemxlController/src/threemxlController.cpp
 zuros_threemxl_controller/threemxlController.h
@@ -26,6 +28,8 @@ zuros_threemxl_controller/threemxlController.h
 threemxl/C3mxlROS.h
 -
 threemxl/LxFTDI.h
+-
+threemxl/dxlassert.h
 -
 
 /opt/ros/hydro/include/XmlRpcDecl.h
@@ -1270,6 +1274,10 @@ threemxl/platform/hardware/dynamixel/CDxlPacketHandler.h
 ftdi.hpp
 -
 threemxl/platform/hardware/serial/LxSerial.h
+-
+
+/opt/ros/hydro/include/threemxl/dxlassert.h
+ros/ros.h
 -
 
 /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../Byte.h

@@ -7,6 +7,8 @@ CMakeFiles/movement.dir/src/movement.cpp.o
  /home/robot/git/zuros/zuros_deliberator/zuros_movement/src/movement.cpp
  /opt/ros/hydro/include/XmlRpcDecl.h
  /opt/ros/hydro/include/XmlRpcValue.h
+ /opt/ros/hydro/include/geometry_msgs/Twist.h
+ /opt/ros/hydro/include/geometry_msgs/Vector3.h
  /opt/ros/hydro/include/ros/advertise_options.h
  /opt/ros/hydro/include/ros/advertise_service_options.h
  /opt/ros/hydro/include/ros/assert.h
@@ -69,6 +71,8 @@ CMakeFiles/movement.dir/src/movement_main.cpp.o
  /home/robot/git/zuros/zuros_deliberator/zuros_movement/src/movement_main.cpp
  /opt/ros/hydro/include/XmlRpcDecl.h
  /opt/ros/hydro/include/XmlRpcValue.h
+ /opt/ros/hydro/include/geometry_msgs/Twist.h
+ /opt/ros/hydro/include/geometry_msgs/Vector3.h
  /opt/ros/hydro/include/ros/advertise_options.h
  /opt/ros/hydro/include/ros/advertise_service_options.h
  /opt/ros/hydro/include/ros/assert.h

@@ -6,6 +6,8 @@ CMakeFiles/movement.dir/src/movement.cpp.o: /home/robot/git/zuros/zuros_control/
 CMakeFiles/movement.dir/src/movement.cpp.o: ../src/movement.cpp
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/XmlRpcDecl.h
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/XmlRpcValue.h
+CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/geometry_msgs/Twist.h
+CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/geometry_msgs/Vector3.h
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/ros/advertise_options.h
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/ros/advertise_service_options.h
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/include/ros/assert.h
@@ -68,6 +70,8 @@ CMakeFiles/movement.dir/src/movement_main.cpp.o: /home/robot/git/zuros/zuros_con
 CMakeFiles/movement.dir/src/movement_main.cpp.o: ../src/movement_main.cpp
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/XmlRpcDecl.h
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/XmlRpcValue.h
+CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/geometry_msgs/Twist.h
+CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/geometry_msgs/Vector3.h
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/ros/advertise_options.h
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/ros/advertise_service_options.h
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/include/ros/assert.h

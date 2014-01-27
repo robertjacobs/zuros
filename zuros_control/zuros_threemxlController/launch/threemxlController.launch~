@@ -1,0 +1,8 @@
+<launch>
+        <node name="threemxl_com" pkg="shared_serial" type="server" output="screen">
+                <param name="port_name" value="/dev/ttyUSB0"/>
+                <param name="port_type" value="RS485_FTDI"/>
+                <param name="baud_rate" value="921600"/>
+        </node>
+        <node name="zuros_threemxl_node" pkg="zuros_control" type="threemxlController" args="threemxl_com" output="screen"/>
+</launch>

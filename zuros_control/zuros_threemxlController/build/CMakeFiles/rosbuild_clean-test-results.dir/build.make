@@ -43,7 +43,7 @@ CMAKE_BINARY_DIR = /home/robot/git/zuros/zuros_control/zuros_threemxlController/
 include CMakeFiles/rosbuild_clean-test-results.dir/progress.make
 
 CMakeFiles/rosbuild_clean-test-results:
-	if ! rm -rf /home/robot/catkin_ws/build/test_results/zuros_threemxlController; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
+	if ! rm -rf /home/robot/.ros/test_results/zuros_threemxlController; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
 
 rosbuild_clean-test-results: CMakeFiles/rosbuild_clean-test-results
 rosbuild_clean-test-results: CMakeFiles/rosbuild_clean-test-results.dir/build.make

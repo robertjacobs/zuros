@@ -33,4 +33,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #target_link_libraries(example ${PROJECT_NAME})
 
 # add build commands
-rosbuild_add_executable(depth src/depth.cpp)
+
+#rosbuild_add_executable(depth src/depth_main.cpp
+#                              src/depth.cpp)
+
+rosbuild_add_executable(image_test src/git.cpp)

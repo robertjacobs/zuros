@@ -1,0 +1,7 @@
+*.pyc
+*.py~
+*.xml~
+*.cpp~
+*.h~
+*.launch~
+*.msg~

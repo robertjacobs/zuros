@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     // create an instance of the subscriber class
-    zurosBase base(n);
+    DPR2Base base(n);
 
 	base.spin();
 

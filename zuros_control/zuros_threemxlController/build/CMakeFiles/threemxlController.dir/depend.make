@@ -104,6 +104,7 @@ CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/i
 CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/C3mxlROS.h
 CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/CDxlROSPacketHandler.h
 CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/LxFTDI.h
+CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/dxlassert.h
 CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../Byte.h
 CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../CDxlCom.h
 CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o: /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../CDxlConfig.h
@@ -146,6 +147,7 @@ CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hy
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/builtin_message_traits.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/common.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/console.h
+CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/datatypes.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/duration.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/exception.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/exceptions.h
@@ -154,6 +156,7 @@ CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hy
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/macros.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/master.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/message.h
+CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/message_event.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/message_forward.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/message_operations.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/ros/message_traits.h
@@ -221,6 +224,7 @@ CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hy
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/tf2_ros/transform_broadcaster.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/threemxl/C3mxlROS.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/threemxl/CDxlROSPacketHandler.h
+CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/threemxl/LxFTDI.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../Byte.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../CDxlCom.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o: /opt/ros/hydro/include/threemxl/platform/hardware/dynamixel/3mxl/../CDxlConfig.h

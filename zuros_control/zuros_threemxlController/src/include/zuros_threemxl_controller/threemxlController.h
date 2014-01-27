@@ -7,8 +7,17 @@
 #include <std_msgs/Float64.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
+#include <threemxl/LxFTDI.h>
 
-class zurosBase
+/// Basic DPR2 base controller class
+/**
+ * This class reads the following values from the parameter server:
+ * \param ~/motor_port The topic name of the \c shared_serial node used for communication with the motor
+ * \param ~/motor_config The name of the motor configuration XML file
+ * \param ~/wheel_diameter The diameter of the wheels in [m]
+ * \param ~/wheel_base The distance between the wheels in [m]
+ */
+class DPR2Base
 {
 protected:
 	ros::NodeHandle nh_;
@@ -16,8 +25,8 @@ protected:
 	ros::Publisher odom_pub_;
 
 	LxSerial _serial_port;
-	CDxlGeneric *_motor_left, *_motor_right;
-	double wheel_diameter_ ,wheel_base_ ;
+	CDxlGeneric *left_motor_, *right_motor_;
+	double wheel_diameter_, wheel_base_;
 
 	ros::Time current_time_, last_time_;
 
@@ -47,16 +56,16 @@ protected:
 	void odometryPublish();
 
 public:
-	zurosBase(ros::NodeHandle nh)
+	DPR2Base(ros::NodeHandle nh)
 	{
 		nh_ = nh;
 		init();
 	}
 
-	~zurosBase()
+	~DPR2Base()
 	{
-		delete _motor_left;
-		delete _motor_right;
+		delete left_motor_;
+		delete right_motor_;
 
 		nh_.shutdown();
 	}
@@ -69,5 +78,5 @@ public:
 	void spin();
 };
 
-#endif 
+#endif /* __DPR2_BASE_H */
 

@@ -1,0 +1,16 @@
+<package>
+  <description brief="zuros_zwave_poller">
+
+     zuros_zwave_poller
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_zwave_poller</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="zuros_sensors"/>
+</package>
+
+
