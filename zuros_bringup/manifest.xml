@@ -1,0 +1,14 @@
+<package>
+  <description brief="zuros_bringup">
+
+     zuros_bringup
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_bringup</url>
+
+</package>
+
+

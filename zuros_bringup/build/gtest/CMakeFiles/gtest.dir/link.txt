@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -g   -shared -Wl,-soname,libgtest.so -o /home/robot/git/zuros/zuros_bringup/lib/libgtest.so CMakeFiles/gtest.dir/src/gtest-all.cc.o -L/home/robot/git/zuros/zuros_bringup/build/gtest/src -lpthread -Wl,-rpath,/home/robot/git/zuros/zuros_bringup/build/gtest/src 

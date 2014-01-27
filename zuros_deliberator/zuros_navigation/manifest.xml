@@ -1,0 +1,14 @@
+<package>
+  <description brief="zuros_navigation">
+
+     zuros_navigation
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_navigation</url>
+
+</package>
+
+

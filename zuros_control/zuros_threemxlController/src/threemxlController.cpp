@@ -4,66 +4,78 @@
 #include <threemxl/dxlassert.h>
 #define CLIP(x, l, u) ((x)<(l))?(l):((x)>(u))?(u):(x)
 
+/** Init the motors */
 void DPR2Base::init()
 {
 	ROS_INFO("Initializing base");
 
-	// Subscript to command topic
-	vel_sub_ = nh_.subscribe("movement", 10, &DPR2Base::velocityCallback, this);
+	// Subscribe to movement topic
+	vel_sub_ = nh_.subscribe("/movement", 10, &DPR2Base::velocityCallback, this);
+
+	// For the ROS navigation it is important to publish the odometry in the odom topic	
 	odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
 
+	// Set robot parameters
 	wheel_diameter_ = 0.297;
 	wheel_base_ = 0.40;
 
+	// The rate of retries in case of failure
 	ros::Rate init_rate(1);
 
-	CDxlConfig *config_left_motor = new CDxlConfig();
-	_serial_port.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
-     _serial_port.set_speed(LxSerial::S921600);
+	// Open serial port and set the speed
+	serial_port_.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
+     serial_port_.set_speed(LxSerial::S921600);
 
-	if(_serial_port.is_port_open())
+	// Check if the serial port is open
+	while(ros::ok() && serial_port_.is_port_open() == false)
 	{
-		ROS_INFO("SERIAL PORT IS OPEN");
+		ROS_WARN_ONCE("Serial port seems to be closed, will continue trying every second");
 	}
 
-	// Initialize left motor
+	// Left motor
+	config_left_motor_ = new CDxlConfig();	
 	left_motor_ = new C3mxl();
-	left_motor_->setSerialPort(&_serial_port);
-	config_left_motor->setID(106);
-	left_motor_->setConfig(config_left_motor);
+	left_motor_->setSerialPort(&serial_port_);
+	config_left_motor_->setID(106);
+	left_motor_->setConfig(config_left_motor_);
 
-	DXL_SAFE_CALL(left_motor_->set3MxlMode(SPEED_MODE));
-
-	ROS_INFO("Left motor mode set");
-
+	// Initialize the left motor
 	while (ros::ok() && left_motor_->init() != DXL_SUCCESS)
 	{
 		ROS_WARN_ONCE("Couldn't initialize left wheel motor, will continue trying every second");
 		init_rate.sleep();
 	}
 
-	// Initialize right motor
-	CDxlConfig *config_right_motor = new CDxlConfig();
+	ROS_INFO("Left motor initialized");
+
+	// Use a DXL safe call to set the motor mode
+	DXL_SAFE_CALL(left_motor_->set3MxlMode(SPEED_MODE));
+	ROS_INFO("Left motor mode set");
+
+	// Right motor
+	config_right_motor_ = new CDxlConfig();
 	right_motor_ = new C3mxl();
-	right_motor_->setSerialPort(&_serial_port);
-	config_right_motor->setID(107);
-	right_motor_->setConfig(config_right_motor);
+	right_motor_->setSerialPort(&serial_port_);
+	config_right_motor_->setID(107);
+	right_motor_->setConfig(config_right_motor_);
 
-	while (ros::ok() && right_motor_->set3MxlMode(SPEED_MODE) != DXL_SUCCESS)
-	{
-		ROS_WARN_ONCE("Couldn't initialize right wheel motor mode, will continue trying every second");
-		init_rate.sleep();
-	}
-
-	ROS_INFO("Right motor mode set");
-
+	// Initialize the right motor
 	while (ros::ok() && right_motor_->init() != DXL_SUCCESS)
 	{
 		ROS_WARN_ONCE("Couldn't initialize right wheel motor, will continue trying every second");
 		init_rate.sleep();
 	}
+
+	ROS_INFO("Right motor initialized");
+
+	// Use a DXL safe call to set the motor mode
+	DXL_SAFE_CALL(left_motor_->set3MxlMode(SPEED_MODE));
+	ROS_INFO("Right motor mode set");
+
+	ROS_INFO("Motors initialized, will start spinning");
 }
 
+/** Own implementation for ros::spin */
 void DPR2Base::spin()
 {
 	ROS_INFO("Spinning");
@@ -75,10 +87,12 @@ void DPR2Base::spin()
 		odometryPublish();
 		r.sleep();
 	}
+}	
 
-	_serial_port.port_close();
-}
-
+/** Called when a new velocity command is published and sends the new velocity to the base motors
+	 * @param msg Pointer to geometry_msgs/Twist message, containing the linear and angular velocities, in [m/s] and [rad/s] respectively.
+	 * @note Since the base is nonholonomic, only linear velocities in the x direction and angular velocities around the z direction are supported.
+	 */
 void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 {
 	// Base is nonholonomic, warn if sent a command we can't execute
@@ -108,7 +122,7 @@ void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 	ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
 }
 
-// reads the current change in wheel and publish as odometry
+/** Reads the current state of the wheels and publishes this to the topic */
 void DPR2Base::odometryPublish()
 {
 	left_motor_->getState();

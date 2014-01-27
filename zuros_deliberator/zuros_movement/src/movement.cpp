@@ -70,10 +70,10 @@ void Movement::callback_joy(const sensor_msgs::Joy::ConstPtr& msg)
 	if(joystick_override_)
 	{
 		if(msg->axes[1] == 0 || msg->axes[1] == -0)
-        {
-            message_.linear.x = 0;
-            message_.linear.x = (0);
-        }
+        	{
+			message_.linear.x = 0;
+			message_.linear.x = (0);
+        	}
 		
 		else
 		{
@@ -81,10 +81,10 @@ void Movement::callback_joy(const sensor_msgs::Joy::ConstPtr& msg)
 		}
 
 		if(msg->axes[3] == 0 || msg->axes[3] == -0)
-        {
-            message_.angular.z = 0;
-            message_.angular.z = (0);
-        }
+        	{
+			message_.angular.z = 0;
+			message_.angular.z = (0);
+        	}
 		
 		else
 		{
