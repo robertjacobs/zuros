@@ -1,0 +1,14 @@
+<package>
+  <description brief="zap_sequence">
+
+     zap_sequence
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zap_sequence</url>
+
+</package>
+
+
