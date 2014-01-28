@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-	<include file="$(find zuros_bringup)/robot.launch" >
+	<include file="$(find zuros_bringup)/launch/robot.launch" >
 		<arg name="robot_env" value="$(env ROBOT_ENV)" />
 		<arg name="pkg_env_config" value="$(find zap_sequence)" />
 	</include>

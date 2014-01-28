@@ -2,13 +2,13 @@
 <launch>
 
 	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
-	<arg name="pkg_env_config" default="$(find cob_default_env_config)"/>
+	<!--<arg name="pkg_env_config" default="$(find cob_default_env_config)"/>-->
 
 	<include file="$(find zuros_bringup)/robots/zuros.xml" ></include>
 	
 	<!-- upload default configuration parameters -->
-	<include file="$(arg pkg_env_config)/upload_navigation_goals.launch">
+	<!--<include file="$(arg pkg_env_config)/upload_navigation_goals.launch">
 		<arg name="robot_env" value="$(arg robot_env)" />
 	</include>
-
+	-->
 </launch>

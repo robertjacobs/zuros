@@ -1,24 +1,28 @@
 <?xml version="1.0"?>
-<robot name="zuros">
-  	<link name="base_link">
-    	<visual>
-		  	<geometry>
-		    	<box size="0.565 0.456 0.083"/>
-		  	</geometry>
-    	</visual>
-  	</link>
+<robot name="origins">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.565 0.456 0.083"/>
+      </geometry>
+    </visual>
+  </link>
 
-	<link name="base_laser">
-    	<visual>
-		  	<geometry>
-		    	<box size="0.035 0.18 0.024"/>
-		  	</geometry>
-    	</visual>
-  	</link>
+  <link name="base_laser">
+    <visual>
+      <geometry>
+        <box size="0.035 0.18 0.024"/>
+      </geometry>
+    </visual>
+	<material name="black">
+		<color rgba="0 0 0 0"/>
+    </material>
+  </link>
 
-	<joint name="base_to_laser" type="fixed">
-    	<parent link="base_link"/>
-    	<child link="base_laser"/>
-  	</joint>
+  <joint name="base_to_laser" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_laser"/>
+	<origin xyz="0.2745 0 -0.0775"/>
+  </joint>
+
 </robot>
-

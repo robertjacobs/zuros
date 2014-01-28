@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 	<!-- start rviz with configuration -->
-	<node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find zuros_bringup)/config/rviz_config.rviz" respawn="false" output="screen" />
+	<node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find zuros_bringup)/config/rviz_config_zuros.rviz" respawn="false" output="screen" />
 </launch>
 
