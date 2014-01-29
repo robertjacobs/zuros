@@ -1,9 +1,13 @@
-<?xml version="1.0"?>
-<launch>
-	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
-	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
-	<!-- start navigation -->
-	<include file="$(find cob_navigation_global)/launch/2dnav_ros_dwa.launch">
-		<arg name="map" default="$(find zuros_navigation/environments)/$(arg robot_env)/map.yaml" />
-	</include>
+launch>
+	<!-- Run the map server with the map -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find
+	zuros_navigation)/environments/robot_room/map.yaml"/>
+	
+	<!-- Launch move_base and load all navigation parameters -->
+	<include file="$(find zuros_navigation)/launch/move_base.launch" />
+
+	<!-- Run a static transform between /odom and /map -->
+	<node pkg="tf" type="static_transform_publisher" name="odom_map_broadcaster"
+	args="0 0 0 0 0 0 /odom /map 100" />
 </launch>
+
