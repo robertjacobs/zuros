@@ -1,0 +1,18 @@
+<package>
+  <description brief="zuros_test">
+
+     zuros_test
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_test</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="geometry_msgs"/>
+  <depend package="tf"/>
+  <depend package="rbx1_nav"/>
+</package>
+
+
