@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<robot name="zuros"  
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find zuros_description)/urdf/turtlebot_body.urdf.xacro" />
+
+  <property name="M_PI" value="3.14159"/>
+  <property name="SCALE" value="0.0254"/>
+
+  <!-- Body of zuros -->
+  <turtlebot_body/>
+</robot>
