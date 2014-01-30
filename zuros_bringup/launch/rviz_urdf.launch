@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
 <launch>
-	<arg name="model" default="$(find zuros_hardware_config)/zuros/urdf/zuros.urdf" />
+	<arg name="model" default="$(find zuros_bringup)/robot_model/zuros/zuros.urdf"/>
 	<arg name="gui" default="False" />
 	<param name="robot_description" textfile="$(arg model)" />
 	<param name="use_gui" value="$(arg gui)"/>

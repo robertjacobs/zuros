@@ -6,5 +6,4 @@
     <rosparam file="$(find zuros_navigation)/config/zap/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find zuros_navigation)/config/zap/base_local_planner_params.yaml" command="load" />
   </node>
-  
 </launch>
