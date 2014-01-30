@@ -69,7 +69,7 @@ void DPR2Base::init()
 	ROS_INFO("Right motor initialized");
 
 	// Use a DXL safe call to set the motor mode
-	DXL_SAFE_CALL(left_motor_->set3MxlMode(SPEED_MODE));
+	DXL_SAFE_CALL(right_motor_->set3MxlMode(SPEED_MODE));
 	ROS_INFO("Right motor mode set");
 
 	ROS_INFO("Motors initialized, will start spinning");

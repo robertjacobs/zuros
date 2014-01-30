@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     // create an instance of the subscriber class
     ZurosBase base(n);
 
-	base.spin();
+    base.spin();
 
     return 0;
 }
