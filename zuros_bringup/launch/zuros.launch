@@ -7,4 +7,7 @@
 
 	<!-- launch threemxl controller -->
 	<node pkg="zuros_threemxlController" type="threemxlController" name="threemxlController_node" output="screen"/>
+
+	<!-- launch openni -->
+	<include file="$(find openni2_launch)/launch/openni2.launch" />
 </launch>
