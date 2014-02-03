@@ -27,7 +27,6 @@ int main(int argc, char **argv)
 
     // initialize the subscribers (for details see comments in class)
     xtionToLaser.init();
-	//controller.spin();
 
     /**
     * ros::spin() will enter a loop, pumping callbacks. With this version, all

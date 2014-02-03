@@ -34,7 +34,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # add build commands
 
-#rosbuild_add_executable(depth src/depth_main.cpp
-#                              src/depth.cpp)
+rosbuild_add_executable(depth src/depth_main.cpp
+                              src/depth.cpp)
 
-rosbuild_add_executable(image_test src/git.cpp)
+#rosbuild_add_executable(depth src/git.cpp)

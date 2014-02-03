@@ -38,8 +38,8 @@ void XtionToLaser::init()
 	* is subscribing. After this advertise() call is made, the master
 	* node will notify anyone who is trying to subscribe to this topic name,
 	* and they will in turn negotiate a peer-to-peer connection with this
-	* node. advertise() returns a Publisher object which allows you to
-	* publish messages on that topic through a call to publish(). Once
+	* node.  advertise() returns a Publisher object which allows you to
+	* publish messages on that topic through a call to publish().  Once
 	* all copies of the returned Publisher object are destroyed, the topic
 	* will be automatically unadvertised.
 	*
@@ -47,11 +47,11 @@ void XtionToLaser::init()
 	* Here it is a string. Find all data types and instructions how to create
 	* your own messages at ros.org.
 	* The second parameter to advertise() is the size of the message queue
-	* used for publishing messages. If messages are published more quickly
+	* used for publishing messages.  If messages are published more quickly
 	* than we can send them, the number here specifies how many messages to
 	* buffer up before throwing some away.
 	*/
-	laser_publisher_ = node_.advertise<sensor_msgs::LaserScan>("XtionToLaser", 10);
+	laser_publisher_ = node_.advertise<sensor_msgs::LaserScan>("laser_scan", 10);
 }
 
 void XtionToLaser::convertColorImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image)
@@ -71,65 +71,79 @@ void XtionToLaser::convertColorImageMessageToMat(const sensor_msgs::Image::Const
 // Handles callback
 void XtionToLaser::inputCallback(const sensor_msgs::Image::ConstPtr& color_image_msg, const sensor_msgs::PointCloud2::ConstPtr& pointcloud_msg)
 {
-    // convert color image to cv::Mat
-    cv_bridge::CvImageConstPtr color_image_ptr;
-    cv::Mat color_image;
-    convertColorImageMessageToMat(color_image_msg, color_image_ptr, color_image);
+     // convert color image to cv::Mat
+	cv_bridge::CvImageConstPtr color_image_ptr;
+	cv::Mat color_image;
+	convertColorImageMessageToMat(color_image_msg, color_image_ptr, color_image);
 
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
-    pcl::fromROSMsg(*pointcloud_msg, *cloud);
+	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+	pcl::fromROSMsg(*pointcloud_msg, *cloud);
 
-    //compute depth_image: greyvalue represents depth z
-    cv::Mat depth_image = cv::Mat::zeros(cloud->height, cloud->width, CV_32FC1);
+	//compute depth_image: greyvalue represents depth z
+	cv::Mat depth_image = cv::Mat::zeros(cloud->height, cloud->width, CV_32FC1);
 
-    // publish to laser scanner topic
-    // laser scanner format: http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html
-    // Asus xtion specs: http://www.asus.com/Multimedia/Xtion_PRO_LIVE/#specifications
-    sensor_msgs::LaserScan msg;
+	for (unsigned int v=0; v<cloud->height; v++)
+	{
+		for (unsigned int u=0; u<cloud->width; u++, u++)
+		{
+			//matrix indices: row y, column x!
+			pcl::PointXYZRGB& point = cloud->at(u,v);
+			if(point.z == point.z)	//test nan
+				depth_image.at< float >(v,u) = point.z;
 
-    // Fill message with data
-    msg.header = pointcloud_msg->header;
-    msg.header.frame_id = "laser_scan";
+		}
+	}
+	
+	// publish to laser scanner topic
+	// laser scanner format: http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html
+	// Asus xtion specs: http://www.asus.com/Multimedia/Xtion_PRO_LIVE/#specifications
+	sensor_msgs::LaserScan msg;
 
-    // Asus xtion angles: 58° H, 45° V, 70° D (Horizontal, Vertical, Diagonal)
-    msg.angle_min = -29./180.*CV_PI;                        // -29 .. 0 .. 29
-    msg.angle_max = 29./180.*CV_PI;                                // -29 .. 0 .. 29
-    msg.angle_increment = 0.090625/180.*CV_PI; // 2*alpha/640
+	// Fill message with data
+	msg.header = pointcloud_msg->header;
+	msg.header.frame_id = "camera_link";
 
-    msg.time_increment = 0;                // sensor is not moving so value is 0
-    msg.scan_time = 1/30;                        // ?????
+	// Asus xtion angles: 58° H, 45° V, 70° D (Horizontal, Vertical, Diagonal)
+	msg.angle_min = -29./180.*CV_PI;			// -29 .. 0 .. 29
+	msg.angle_max = 29./180.*CV_PI;				// -29 .. 0 .. 29
+	msg.angle_increment = 0.090625/180.*CV_PI;  // 2*alpha/640
 
-    // Asus xtion Distance of Use Between 0.8m and 3.5m
-    msg.range_min = 0.5;                // 0.5 meters
-    msg.range_max = 8.5;                 // 3.5 meters
+	msg.time_increment = 0;		// sensor is not moving so value is 0
+	msg.scan_time = 1/30;			// ?????
 
-    msg.ranges.resize(cloud->width, 0);
-    //msg.intensities;                // If your device does not provide intensities, please leave the array empty.
+	// Asus xtion Distance of Use Between 0.8m and 3.5m
+	msg.range_min = 0.5;		// 0.5 meters
+	msg.range_max = 8.5;  		// 3.5 meters
 
-    // range we want to look at is 238 - 242 (5 pixels with 240 as center)
-    float total;
-    for (unsigned int u=0; u<cloud->width; ++u)
-    {
-        total = 0;
-        for (unsigned int v=238; v<243; ++v)
-        {
-            pcl::PointXYZRGB& point = cloud->at(u,v);
-            //matrix indices: row y, column x!
+	msg.ranges.resize(cloud->width, 0);
+	msg.intensities;		// If your device does not provide intensities, please leave the array empty.
 
-            if(point.z == point.z && point.x == point.x)        //test not a number
-                total += sqrt(point.z*point.z + point.x * point.x);
-        }
-        msg.ranges[u]=total/5.f;
-    }
+	// range we want to look at is 238 - 242 (5 pixels with 240 as center)
+	float total;
+	for (unsigned int u=0; u<cloud->width; ++u)
+	{
+		total = 0;
+		for (unsigned int v=238; v<243; ++v)
+		{
+			pcl::PointXYZRGB& point = cloud->at(u,v);
+			//matrix indices: row y, column x!
 
-    //publish on topic
-    laser_publisher_.publish(msg);
+			if(point.z == point.z && point.x == point.x)	//test not a number
+				total += sqrt(point.z*point.z + point.x * point.x);
+		}
+		msg.ranges[u]=total/5.f;
+	}
 
-    //visualization on screen
-    cv::Mat depth_im_scaled;
-    cv::normalize(depth_image, depth_im_scaled,0,1,cv::NORM_MINMAX);
-    cv::imshow("depth_image", depth_im_scaled);
-    cv::waitKey(10);
+	//publish on topic
+	laser_publisher_.publish(msg);
+
+	//visualization on screen
+	cv::Mat depth_im_scaled;
+	cv::normalize(depth_image, depth_im_scaled,0,1,cv::NORM_MINMAX);
+	//cv::imshow("depth_image", depth_im_scaled);
+	//cv::waitKey(10);
+	//cv::imshow("color_image", color_image);
+     //cv::waitKey(10);
 }
 
 
