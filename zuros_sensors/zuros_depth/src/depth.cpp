@@ -51,7 +51,7 @@ void XtionToLaser::init()
 	* than we can send them, the number here specifies how many messages to
 	* buffer up before throwing some away.
 	*/
-	laser_publisher_ = node_.advertise<sensor_msgs::LaserScan>("laser_scan", 10);
+	laser_publisher_ = node_.advertise<sensor_msgs::LaserScan>("scan", 10);
 }
 
 void XtionToLaser::convertColorImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image)
