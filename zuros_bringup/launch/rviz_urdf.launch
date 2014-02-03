@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
 	<arg name="model" default="$(find zuros_bringup)/robot_model/zuros/zuros.urdf"/>
 	<arg name="gui" default="False" />
