@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     * The first NodeHandle constructed will fully initialize this node, and the last
     * NodeHandle destructed will close down the node.
     */
-    ros::NodeHandle n;
+    ros::NodeHandle n("~");
 
     // create an instance of the subscriber class
     DPR2Base base(n);

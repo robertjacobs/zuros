@@ -121,6 +121,7 @@ CMakeFiles/threemxlController.dir/src/threemxlController.cpp.o
  /opt/ros/hydro/include/threemxl/platform/hardware/serial/LxSerial.h
  /opt/ros/hydro/include/threemxl/platform/io/configuration/Configuration.h
  /opt/ros/hydro/include/threemxl/platform/io/configuration/OptionVars.h
+ /opt/ros/hydro/include/threemxl/platform/io/configuration/XMLConfiguration.h
  /opt/ros/hydro/include/threemxl/platform/io/logging/Log.h
  /opt/ros/hydro/include/threemxl/platform/io/logging/Log2.h
 CMakeFiles/threemxlController.dir/src/threemxlController_main.cpp.o

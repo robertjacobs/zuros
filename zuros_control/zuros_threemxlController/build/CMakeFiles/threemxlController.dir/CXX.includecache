@@ -25,6 +25,8 @@ threemxl/LxFTDI.h
 /home/robot/git/zuros/zuros_control/zuros_threemxlController/src/threemxlController.cpp
 zuros_threemxl_controller/threemxlController.h
 /home/robot/git/zuros/zuros_control/zuros_threemxlController/src/zuros_threemxl_controller/threemxlController.h
+threemxl/platform/io/configuration/XMLConfiguration.h
+-
 threemxl/C3mxlROS.h
 -
 threemxl/LxFTDI.h
@@ -1447,6 +1449,16 @@ OptionVars.h
 /opt/ros/hydro/include/threemxl/platform/io/configuration/OptionVars.h
 
 /opt/ros/hydro/include/threemxl/platform/io/configuration/OptionVars.h
+
+/opt/ros/hydro/include/threemxl/platform/io/configuration/XMLConfiguration.h
+string
+-
+Configuration.h
+/opt/ros/hydro/include/threemxl/platform/io/configuration/Configuration.h
+tinyxml.h
+-
+vector
+-
 
 /opt/ros/hydro/include/threemxl/platform/io/logging/Log.h
 win32_compat.h

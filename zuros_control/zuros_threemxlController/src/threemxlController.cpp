@@ -1,4 +1,5 @@
 #include "zuros_threemxl_controller/threemxlController.h"
+#include <threemxl/platform/io/configuration/XMLConfiguration.h>
 #include <threemxl/C3mxlROS.h>
 #include <threemxl/LxFTDI.h>
 #include <threemxl/dxlassert.h>
@@ -9,15 +10,14 @@ void DPR2Base::init()
 {
 	ROS_INFO("Initializing base");
 
+	wheel_diameter_ = 0.295;
+	wheel_base_ = 0.54;
+
 	// Subscribe to movement topic
 	vel_sub_ = nh_.subscribe("/movement", 10, &DPR2Base::velocityCallback, this);
 
 	// For the ROS navigation it is important to publish the odometry in the odom topic	
 	odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
-
-	// Set robot parameters
-	wheel_diameter_ = 0.297;
-	wheel_base_ = 0.40;
 
 	// The rate of retries in case of failure
 	ros::Rate init_rate(1);
@@ -32,12 +32,17 @@ void DPR2Base::init()
 		ROS_WARN_ONCE("Serial port seems to be closed, will continue trying every second");
 	}
 
+	// Load motor configuration
+	CXMLConfiguration motor_config_xml;
+	//ROS_ASSERT(motor_config_xml.loadFile(motor_config_name));
+	ROS_ASSERT(motor_config_xml.loadFile("motors.xml"));
+	
+	CDxlConfig motor_config_left;
+	motor_config_left.readConfig(motor_config_xml.root().section("left"));
 	// Left motor
-	config_left_motor_ = new CDxlConfig();	
 	left_motor_ = new C3mxl();
+	left_motor_->setConfig(&motor_config_left);
 	left_motor_->setSerialPort(&serial_port_);
-	config_left_motor_->setID(106);
-	left_motor_->setConfig(config_left_motor_);
 
 	// Initialize the left motor
 	while (ros::ok() && left_motor_->init() != DXL_SUCCESS)
@@ -48,16 +53,14 @@ void DPR2Base::init()
 
 	ROS_INFO("Left motor initialized");
 
-	// Use a DXL safe call to set the motor mode
-	DXL_SAFE_CALL(left_motor_->set3MxlMode(SPEED_MODE));
-	ROS_INFO("Left motor mode set");
-
 	// Right motor
-	config_right_motor_ = new CDxlConfig();
+	CDxlConfig motor_config_right;
+	motor_config_right.readConfig(motor_config_xml.root().section("right"));
+
 	right_motor_ = new C3mxl();
+	
+	right_motor_->setConfig(&motor_config_right);
 	right_motor_->setSerialPort(&serial_port_);
-	config_right_motor_->setID(107);
-	right_motor_->setConfig(config_right_motor_);
 
 	// Initialize the right motor
 	while (ros::ok() && right_motor_->init() != DXL_SUCCESS)
@@ -67,10 +70,6 @@ void DPR2Base::init()
 	}
 
 	ROS_INFO("Right motor initialized");
-
-	// Use a DXL safe call to set the motor mode
-	DXL_SAFE_CALL(right_motor_->set3MxlMode(SPEED_MODE));
-	ROS_INFO("Right motor mode set");
 
 	ROS_INFO("Motors initialized, will start spinning");
 }
