@@ -10,7 +10,7 @@ void DPR2Base::init()
 {
 	ROS_INFO("Initializing base");
 
-	wheel_diameter_ = 0.295;
+	wheel_diameter_ = 0.30;
 	wheel_base_ = 0.54;
 
 	// Subscribe to movement topic
