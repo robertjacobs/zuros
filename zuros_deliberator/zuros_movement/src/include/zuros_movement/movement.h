@@ -24,6 +24,7 @@ public:
 	void callback_joy(const sensor_msgs::Joy::ConstPtr& msg);
 private:
 	bool joystick_override_;
+	bool joystick_override_was_active_;
 protected:
     ros::NodeHandle nh_;
 	ros::Publisher publisher_cmd_vel_mov_;

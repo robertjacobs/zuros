@@ -15,5 +15,5 @@ export PATH="/home/robot/git/zuros/zuros_deliberator/zuros_movement/build/devel/
 export PKG_CONFIG_PATH="/home/robot/git/zuros/zuros_deliberator/zuros_movement/build/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PYTHONPATH="/home/robot/git/zuros/zuros_deliberator/zuros_movement/build/devel/lib/python2.7/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/robot/git/zuros/zuros_deliberator/zuros_movement/build/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/robot/git/zuros/zuros_deliberator/zuros_movement:/home/robot/catkin_ws/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks"
+export ROS_PACKAGE_PATH="/home/robot/git/zuros/zuros_deliberator/zuros_movement:/home/robot/catkin_depth_to_laser_ws/src:/home/robot/catkin_openni_ws/src:/home/robot/catkin_ws/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks"
 export ROS_TEST_RESULTS_DIR="/home/robot/git/zuros/zuros_deliberator/zuros_movement/build/test_results"

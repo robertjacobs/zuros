@@ -16,6 +16,7 @@ Movement::Movement(ros::NodeHandle nh)
 void Movement::init()
 {
 	joystick_override_ = false;
+	joystick_override_was_active_ = false;
 	publisher_cmd_vel_mov_ = nh_.advertise<geometry_msgs::Twist>("/movement", 100);
 	subscriber_cmd_vel_ = nh_.subscribe("/cmd_vel", 100, &Movement::callback_cmd_vel, this);
 	subscriber_joy_ = nh_.subscribe("/joy", 100, &Movement::callback_joy, this);
@@ -28,6 +29,21 @@ void Movement::spin()
 	{
 		if(joystick_override_)
 		{
+			publisher_cmd_vel_mov_.publish(message_);
+		}
+
+		// The joystick was active, just to be sure set everythin to 0, otherwise the robot might keep moving after releasing user override button
+		else if(joystick_override_was_active_)
+		{
+			joystick_override_was_active_ = false;
+			message_.linear.x = 0;
+			message_.linear.y = 0;
+			message_.linear.z = 0;
+
+			message_.angular.x = 0;
+			message_.angular.y = 0;
+			message_.angular.z = 0;
+
 			publisher_cmd_vel_mov_.publish(message_);
 		}
 		ros::getGlobalCallbackQueue()->callAvailable(ros::WallDuration(0.1));
@@ -59,6 +75,7 @@ void Movement::callback_joy(const sensor_msgs::Joy::ConstPtr& msg)
 	{
 		ROS_INFO("USER OVERRIDE ACTIVE");
 		joystick_override_ = true;
+		joystick_override_was_active_ = true;
 	}
 
 	else if(msg->buttons[5] == 0 && joystick_override_ == true)
