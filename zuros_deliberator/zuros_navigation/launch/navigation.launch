@@ -1,6 +1,10 @@
 <launch>
-	<!-- Run the map server with the map -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(find zuros_navigation)/environments/robot_room/map.yaml"/>
+	
+	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
+	<arg name="pkg_robot_config" default="$(find zuros_year1)"/>
+	
+	<!-- Run the map server with the map -->										
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg pkg_robot_config)/$(arg robot_env)/map.yaml"/>
 
 	<!--- Run AMCL -->
 	<!-- <include file="$(find zuros_navigation)/launch/amcl.launch" /> -->
