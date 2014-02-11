@@ -1,5 +1,6 @@
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir
+/home/robot/git/zuros/zuros_laptop/build/CMakeFiles/ROSBUILD_genmsg_py.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/_catkin_empty_exported_target.dir
@@ -11,6 +12,7 @@
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/rosbuild_precompile.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/rosbuild_premsgsrvgen.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/rospack_genmsg.dir
+/home/robot/git/zuros/zuros_laptop/build/CMakeFiles/rospack_genmsg_all.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/rospack_genmsg_libexe.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/rospack_gensrv.dir
 /home/robot/git/zuros/zuros_laptop/build/CMakeFiles/run_tests.dir

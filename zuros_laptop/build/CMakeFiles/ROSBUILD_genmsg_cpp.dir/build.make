@@ -42,9 +42,36 @@ CMAKE_BINARY_DIR = /home/robot/git/zuros/zuros_laptop/build
 # Include the progress variables for this target.
 include CMakeFiles/ROSBUILD_genmsg_cpp.dir/progress.make
 
-CMakeFiles/ROSBUILD_genmsg_cpp:
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h
+
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: ../msg/MSG_LAPTOP_BATTERY.msg
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/roslib/cmake/../../../lib/roslib/gendeps
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: ../manifest.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/genmsg/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/genpy/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/catkin/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/console_bridge/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/cpp_common/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/rostime/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/roscpp_traits/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/roscpp_serialization/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/message_runtime/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/rosconsole/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/std_msgs/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/xmlrpcpp/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/roscpp/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/rosgraph/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/rospack/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/roslib/package.xml
+../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h: /opt/ros/hydro/share/rospy/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_laptop/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h"
+	/opt/ros/hydro/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/robot/git/zuros/zuros_laptop/msg/MSG_LAPTOP_BATTERY.msg
 
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/zuros_laptop/MSG_LAPTOP_BATTERY.h
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp.dir/build.make
 .PHONY : ROSBUILD_genmsg_cpp
 
