@@ -2,6 +2,9 @@
 	<!-- launch joystick -->
 	<node name="zuros_joystick_node" pkg="joy" type="joy_node" output="screen"/>
 
+	<!-- launch laptop battery monitor -->
+	<node name="zuros_laptop_battery_node" pkg="zuros_laptop" type="laptop_battery.py" output="screen"/>
+
 	<!-- launch movement -->
 	<node pkg="zuros_movement" type="movement" name="movement_node" output="screen"/>
 
