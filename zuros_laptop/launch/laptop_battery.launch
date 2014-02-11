@@ -1,0 +1,4 @@
+<launch>
+	<!-- launch laptop battery monitor -->
+	<node name="zuros_laptop_battery_node" pkg="zuros_laptop" type="laptop_battery.py" output="screen"/>
+</launch>
