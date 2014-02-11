@@ -1,0 +1,15 @@
+<package>
+  <description brief="zuros_laptop">
+
+     zuros_laptop
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_laptop</url>
+  <depend package="rospy"/>
+
+</package>
+
+
