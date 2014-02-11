@@ -44,11 +44,11 @@ class Database(object):
 		return cursor.fetchall()
         
 	def UpdateSensorValue(self, sensor):
-		query = "UPDATE Sensor SET value='%s', interpreted_value='%s', last_interpreted_value='%s', lastUpdated='%s' WHERE id='%s' " % (
+		query = "UPDATE Sensor SET value='%s', interpreted_value='%s', last_interpreted_value='%s', last_updated='%s' WHERE id='%s' " % (
 																																sensor['value'],
 																																sensor['interpreted_value'],
 																																sensor['last_interpreted_value'],
-																																sensor['lastUpdated'],
+																																sensor['last_updated'],
 																																sensor['id'])
 		try:
 			self.Execute(query)

@@ -111,22 +111,17 @@ class FibaroZWaveHomeController(PollingProcessor):
 			self._sensor_publisher.publish(MSG_ZWAVE_STATUS(name=sensor['name'],value=sensor['properties']['value'],communication_id=sensor['id']))		
 
 if __name__ == '__main__':
-	try:
-		parameters = rospy.get_param("/zuros/zuros_sensors/zuros_environment_sensors/config/")
-	except:
-		rospy.loginfo(rospy.get_name() + " Parameters not set. Please run the folllowing console command: rosrun zuros_sensors set_parameters.py")
-		sys.exit("Parameters not set. Please run the folllowing console command: rosrun zuros_environment_sensors set_parameters.py")
-
+	import include.config
 	#Array which holds the different sensors
 	sensorList = []
 	
 	#Find sensors in location named ZAP in config file
-	for key, sensorType in parameters['locations']['ZAP'].items():
+	for key, sensorType in include.config.sensor_config['locations']['ZAP'].items():
 		sensor = None	
 
 		#Is there a sensor with the name "ZWaveHomeController"?
 		if sensorType == 'ZWaveHomeController':
-			sensor = FibaroZWaveHomeController(parameters['sensor_config']['zwave']['server_address'])
+			sensor = FibaroZWaveHomeController(include.config.sensor_config['sensor_config']['zwave']['server_address'])
 	
 		#If we found a sensor, add it to the list
 		if sensor != None:
