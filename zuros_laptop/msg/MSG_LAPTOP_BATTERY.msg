@@ -1,4 +1,4 @@
-string battery_name
+string name
 string state
 string percentage
 string remaining

@@ -22,7 +22,7 @@ struct MSG_LAPTOP_BATTERY_ {
   typedef MSG_LAPTOP_BATTERY_<ContainerAllocator> Type;
 
   MSG_LAPTOP_BATTERY_()
-  : battery_name()
+  : name()
   , state()
   , percentage()
   , remaining()
@@ -30,15 +30,15 @@ struct MSG_LAPTOP_BATTERY_ {
   }
 
   MSG_LAPTOP_BATTERY_(const ContainerAllocator& _alloc)
-  : battery_name(_alloc)
+  : name(_alloc)
   , state(_alloc)
   , percentage(_alloc)
   , remaining(_alloc)
   {
   }
 
-  typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _battery_name_type;
-  std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  battery_name;
+  typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _name_type;
+  std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  name;
 
   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _state_type;
   std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  state;
@@ -78,12 +78,12 @@ template<class ContainerAllocator>
 struct MD5Sum< ::zuros_laptop::MSG_LAPTOP_BATTERY_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "d625544efcdab63ea31b1c72901c2d10";
+    return "8d8fe15d198a3ee81e16217998944f3e";
   }
 
   static const char* value(const  ::zuros_laptop::MSG_LAPTOP_BATTERY_<ContainerAllocator> &) { return value(); } 
-  static const uint64_t static_value1 = 0xd625544efcdab63eULL;
-  static const uint64_t static_value2 = 0xa31b1c72901c2d10ULL;
+  static const uint64_t static_value1 = 0x8d8fe15d198a3ee8ULL;
+  static const uint64_t static_value2 = 0x1e16217998944f3eULL;
 };
 
 template<class ContainerAllocator>
@@ -100,7 +100,7 @@ template<class ContainerAllocator>
 struct Definition< ::zuros_laptop::MSG_LAPTOP_BATTERY_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "string battery_name\n\
+    return "string name\n\
 string state\n\
 string percentage\n\
 string remaining\n\
@@ -123,7 +123,7 @@ template<class ContainerAllocator> struct Serializer< ::zuros_laptop::MSG_LAPTOP
 {
   template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
   {
-    stream.next(m.battery_name);
+    stream.next(m.name);
     stream.next(m.state);
     stream.next(m.percentage);
     stream.next(m.remaining);
@@ -144,8 +144,8 @@ struct Printer< ::zuros_laptop::MSG_LAPTOP_BATTERY_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const  ::zuros_laptop::MSG_LAPTOP_BATTERY_<ContainerAllocator> & v) 
   {
-    s << indent << "battery_name: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.battery_name);
+    s << indent << "name: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.name);
     s << indent << "state: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.state);
     s << indent << "percentage: ";

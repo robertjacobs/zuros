@@ -6,16 +6,16 @@ import struct
 
 
 class MSG_LAPTOP_BATTERY(genpy.Message):
-  _md5sum = "d625544efcdab63ea31b1c72901c2d10"
+  _md5sum = "8d8fe15d198a3ee81e16217998944f3e"
   _type = "zuros_laptop/MSG_LAPTOP_BATTERY"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """string battery_name
+  _full_text = """string name
 string state
 string percentage
 string remaining
 
 """
-  __slots__ = ['battery_name','state','percentage','remaining']
+  __slots__ = ['name','state','percentage','remaining']
   _slot_types = ['string','string','string','string']
 
   def __init__(self, *args, **kwds):
@@ -26,7 +26,7 @@ string remaining
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       battery_name,state,percentage,remaining
+       name,state,percentage,remaining
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -35,8 +35,8 @@ string remaining
     if args or kwds:
       super(MSG_LAPTOP_BATTERY, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.battery_name is None:
-        self.battery_name = ''
+      if self.name is None:
+        self.name = ''
       if self.state is None:
         self.state = ''
       if self.percentage is None:
@@ -44,7 +44,7 @@ string remaining
       if self.remaining is None:
         self.remaining = ''
     else:
-      self.battery_name = ''
+      self.name = ''
       self.state = ''
       self.percentage = ''
       self.remaining = ''
@@ -61,7 +61,7 @@ string remaining
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.battery_name
+      _x = self.name
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -113,9 +113,9 @@ string remaining
       start = end
       end += length
       if python3:
-        self.battery_name = str[start:end].decode('utf-8')
+        self.name = str[start:end].decode('utf-8')
       else:
-        self.battery_name = str[start:end]
+        self.name = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -155,7 +155,7 @@ string remaining
     :param numpy: numpy python module
     """
     try:
-      _x = self.battery_name
+      _x = self.name
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -208,9 +208,9 @@ string remaining
       start = end
       end += length
       if python3:
-        self.battery_name = str[start:end].decode('utf-8')
+        self.name = str[start:end].decode('utf-8')
       else:
-        self.battery_name = str[start:end]
+        self.name = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])

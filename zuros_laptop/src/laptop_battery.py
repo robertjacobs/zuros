@@ -7,7 +7,7 @@ import re
 
 def GetAndPublish():
 	# Init rospy publisher and node
-	pub = rospy.Publisher('laptop/status/battery_voltage', MSG_LAPTOP_BATTERY)
+	pub = rospy.Publisher('laptop/status/battery', MSG_LAPTOP_BATTERY)
 	rospy.init_node('zuros_laptop_laptop_voltage_py')
 
 	while not rospy.is_shutdown():
@@ -28,10 +28,10 @@ def GetAndPublish():
 		string_percentage = remaining2[0:index-1][1:]	
 
 		# The only thing remaining, after removing the first words, is either nothing (will publish percentage) or the remaining battery time
-		str_remaining = remaining2[index+1:len(remaining2)][1:]	
+		str_remaining = remaining2[index+1:len(remaining2)][1:][:-1]
 		
 		# Publish the battery info on the topic
-		pub.publish(MSG_LAPTOP_BATTERY(battery_name=str_battery_name, state=str_state, percentage=string_percentage, remaining=str_remaining))
+		pub.publish(MSG_LAPTOP_BATTERY(name=str_battery_name, state=str_state, percentage=string_percentage, remaining=str_remaining))
 		rospy.sleep(0.5)
 
 if __name__ == '__main__':

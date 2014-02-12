@@ -1,6 +1,6 @@
 (cl:in-package zuros_laptop-msg)
-(cl:export '(BATTERY_NAME-VAL
-          BATTERY_NAME
+(cl:export '(NAME-VAL
+          NAME
           STATE-VAL
           STATE
           PERCENTAGE-VAL
