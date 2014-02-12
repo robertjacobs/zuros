@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robot/git/zuros/zuros_command_gui/build/devel/setup.sh

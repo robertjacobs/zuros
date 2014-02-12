@@ -1,2 +1,3 @@
 #[x,y,theta]
 home: [0, 0, 0]
+kitchen: [1,1,1]
