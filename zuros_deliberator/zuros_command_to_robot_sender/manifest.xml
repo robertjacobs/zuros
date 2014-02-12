@@ -1,0 +1,17 @@
+<package>
+  <description brief="zuros_command_to_robot_sender">
+
+     zuros_command_to_robot_sender
+
+  </description>
+  <author>robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/zuros_command_to_robot_sender</url>
+  <depend package="move_base_msgs"/>
+  <depend package="actionlib"/>
+  <depend package="roscpp"/>
+
+</package>
+
+
