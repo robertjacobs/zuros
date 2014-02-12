@@ -1,2 +1,4 @@
-buttons: 
-  [[home,move,home]]
+group1:
+  group_name: navigation_goals
+  component_name: base
+  buttons: [[home,move,home]]
