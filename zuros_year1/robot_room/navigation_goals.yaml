@@ -1,3 +1,4 @@
 #[x,y,theta]
-home: [0, 0, 0]
-kitchen: [1,1,1]
+home: [-1, 0, 1]
+kitchen: [-1.5,1,1]
+sofa: [-1.5,0,1]

@@ -2,6 +2,7 @@
 import roslib
 roslib.load_manifest('zuros_command_gui')
 from zuros_laptop.msg import MSG_LAPTOP_BATTERY
+from std_msgs.msg import Bool
 from buttons import *
 import thread
 import pygtk
@@ -38,12 +39,34 @@ class CommandGUI():
 	def CallbackLaptopBattery(self, msg):
 		self.WriteBatteryInfoToStatusBar(msg.name, msg.state, msg.percentage, msg.remaining)
 
+	def CallbackEmergencyStop(self, emergency_stop):
+		if(emergency_stop.data == True and self.emergency == False):
+			print "Emergency stop issued"
+			self.emergency = True
+			#gtk.threads_enter()
+			#context_id = self.status_bar.get_context_id("Statusbar")
+			#string = "Emergency stop issued!!!"  
+			
+			#self.status_bar.push(context_id, string)
+			#gtk.threads_leave()
+
+			n = pynotify.Notification("Emergency stop issued", "", "dialog-warning")
+			n.set_timeout(1)
+			n.show()
+		elif(emergency_stop.data == False and self.emergency == True):
+			print "Emergency stop released"			
+			self.emergency = False
+			n = pynotify.Notification("Emergency stop released", "", "dialog-ok")
+			n.set_timeout(1)
+			n.show()
+
 	def WriteBatteryInfoToStatusBar(self, name, state, percentage, remaining):
-		gtk.threads_enter()
-		context_id = self.status_bar.get_context_id("Statusbar")
-		string = "Connected to $ROS_MASTER_URI=" + os.environ.get("ROS_MASTER_URI") + "              Status of " + name + " is: " + state + ", " + percentage + "%, " + remaining  
-		self.status_bar.push(context_id, string)
-		gtk.threads_leave()
+		if(self.emergency == False):		
+			gtk.threads_enter()
+			context_id = self.status_bar.get_context_id("Statusbar")
+			string = "Connected to $ROS_MASTER_URI=" + os.environ.get("ROS_MASTER_URI") + "              Status of " + name + " is: " + state + ", " + percentage + "%, " + remaining  
+			self.status_bar.push(context_id, string)
+			gtk.threads_leave()
 		
 		if(state != self.battery_state):
 			if(state == "Charging"):
@@ -51,20 +74,20 @@ class CommandGUI():
 				n.set_timeout(1)
 				n.show()
 
-		elif(state == "Discharging"):
-			n = pynotify.Notification("Laptop charging cable unplugged", "", "dialog-warning")
-			n.set_timeout(1)
-			n.show()
+			elif(state == "Discharging"):
+				n = pynotify.Notification("Laptop charging cable unplugged", "", "dialog-warning")
+				n.set_timeout(1)
+				n.show()
 
-		self.battery_state = state
+			self.battery_state = state
 
-		if(percentage <= "15" and self.battery_low_notified == False):
+		if(percentage <= 15 and self.battery_low_notified == False):
 			n = pynotify.Notification("Laptop battery is running low", "", "dialog-warning")
 			n.set_timeout(1)
 			n.show()
 			self.battery_low_notified = True
 
-		elif(percentage <=8 and self.battery_critical_notified == False):
+		elif(percentage <= 8 and self.battery_critical_notified == False):
 			n = pynotify.Notification("Laptop battery is running low", "", "dialog-warning")
 			n.set_timeout(1)
 			n.show()
@@ -73,11 +96,12 @@ class CommandGUI():
 	def __init__(self):
 		#init ros node
 		rospy.init_node('zuros_command_gui')
-		rospy.Subscriber("/laptop/status/battery", MSG_LAPTOP_BATTERY, self.CallbackLaptopBattery)
+		rospy.Subscriber("/emergency_stop", Bool, self.CallbackEmergencyStop)
 		pynotify.init ("zuros_command_gui")
 		self.battery_state = "Discharging"
 		self.battery_low_notified = False
 		self.battery_critical_notified = False
+		self.emergency = False
 
 		self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
 		self.window.connect("delete_event", self.delete_event)
@@ -102,7 +126,8 @@ class CommandGUI():
 				panel = GtkPanel(self, pname)
 				for aname, func, args in actions:
 					panel.addButton(text=aname, command=lambda f=func, a=args: f(*a))
-					self.hbox.pack_start(panel,True, True, 3)
+					if(panel != None):
+						self.hbox.pack_start(panel,True, True, 3)
 
 			for columns in range (0, 5-len(panels)):
 				panel = GtkPanel(self, "")
@@ -116,6 +141,8 @@ class CommandGUI():
 		self.window.add(vbox)    
 		self.window.show_all()
 
+		rospy.Subscriber("/laptop/status/battery", MSG_LAPTOP_BATTERY, self.CallbackLaptopBattery)
+
 		gtk.gdk.threads_init()
 		gtk.gdk.threads_enter()
 		gtk.main()
@@ -128,3 +155,4 @@ def signal_handler(signal, frame):
 if __name__ == "__main__":
 	signal.signal(signal.SIGINT, signal_handler)
 	program = CommandGUI()
+	rospy.spin()

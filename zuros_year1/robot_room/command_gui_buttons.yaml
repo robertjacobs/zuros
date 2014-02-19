@@ -1,4 +1,4 @@
 group1:
   group_name: navigation_goals
   component_name: base
-  buttons: [[stop,base,stop, True],[home,base,home, True],[goto kitchen,base,kitchen, True]]
+  buttons: [[stop,base,stop, True] , [home,base,home, True] , [goto kitchen,base,kitchen, True] , [goto sofa, base, sofa, True]]

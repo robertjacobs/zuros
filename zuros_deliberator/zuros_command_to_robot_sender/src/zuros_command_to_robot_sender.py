@@ -4,14 +4,17 @@ import roslib; roslib.load_manifest('zuros_command_to_robot_sender')
 import rospy
 import actionlib
 
+import thread
+
 #move_base_msgs
 from move_base_msgs.msg import *
-import rospy
-import actionlib
+from geometry_msgs.msg import PoseStamped
+from move_base_msgs.msg import *
 
 class CommandToRobotSender(object):
-	def __init(self):
-		pass
+	def __init__(self):
+		self.action_client = actionlib.SimpleActionClient("/move_base", MoveBaseAction)
+		#self.pub_move_base_simple = rospy.Publisher("/move_base_simple/goal", PoseStamped)
 
 	def SortDict(self,dictionary):
 		keys = sorted(dictionary.iterkeys())
@@ -28,13 +31,13 @@ class CommandToRobotSender(object):
 			rospy.logerror(rospy.get_name() + "The component requested is not yet implemented");
 
 	def stop(self, component_name):
-		base_client = actionlib.SimpleActionClient("move_base", MoveBaseAction)
+		#base_client = actionlib.SimpleActionClient("move_base", MoveBaseAction)
 		rospy.loginfo("Stop <<%s>>", component_name)
-		base_client.cancel_all_goals()
+		self.action_client.cancel_all_goals()
 		
 	def move_base(self, component_name, position, blocking):
-		base_client = actionlib.SimpleActionClient("move_base", MoveBaseAction)		
-
+		#ah = action_handle("move_base", component_name, position, blocking, self.parse)
+		
 		#look up position in parameter server
 		nav_prefix = "~nav_positions"
 
@@ -62,34 +65,41 @@ class CommandToRobotSender(object):
 		if(nav_pos != None):
 			rospy.loginfo("Move <<%s>> to <<[x,y,z] %d, %d, %d>>", component_name, nav_pos[0], nav_pos[1], nav_pos[2])
 		else:
+			ROS_ERROR("No valid position found, cancelling move command. Are you sure your position is added to the parameter server?")
 			return
 
 		# convert to pose message
-		#pose = PoseStamped()
-		#pose.header.stamp = rospy.Time.now()
-		#pose.header.frame_id = "/map"
-		#pose.pose.position.x = param[0]
-		#pose.pose.position.y = param[1]
-		#pose.pose.position.z = 0.0
-		#q = quaternion_from_euler(0, 0, param[2])
-		#pose.pose.orientation.x = q[0]
-		#pose.pose.orientation.y = q[1]
-		#pose.pose.orientation.z = q[2]
-		#pose.pose.orientation.w = q[3]
+		pose = PoseStamped()
+		pose.header.stamp = rospy.Time.now()
+		pose.header.frame_id = "/map"
+		pose.pose.position.x = nav_pos[0]
+		pose.pose.position.y = nav_pos[1]
+		pose.pose.position.z = 0
+		pose.pose.orientation.x = 0
+		pose.pose.orientation.y = 0
+		pose.pose.orientation.z = 0
+		pose.pose.orientation.w = nav_pos[2]
 
-		#client = actionlib.SimpleActionClient(action_server_name, MoveBaseAction)
-
-		#rospy.logdebug("waiting for %s action server to start",action_server_name)
-		#if not client.wait_for_server(rospy.Duration(5)):
+		rospy.logdebug("waiting for move_base action server to start")
+		if not self.action_client.wait_for_server(rospy.Duration(5)):
 			# error: server did not respond
-		#	rospy.logerr("%s action server not ready within timeout, aborting...", action_server_name)
-		#	ah.set_failed(4)
-		#	return ah
-		#else:
-		#	rospy.logdebug("%s action server ready",action_server_name)
+			rospy.logerr("move_base action server not ready within timeout, aborting...")
+			return
+		else:
+			rospy.logdebug("move_base action server ready")
 
 		# sending goal
-		#client_goal = MoveBaseGoal()
-		#client_goal.target_pose = pose
+		client_goal = MoveBaseGoal()
+		client_goal.target_pose = pose
 		#print client_goal
-		#client.send_goal(client_goal)
+		
+		thread.start_new_thread( self.handle, (client_goal,))
+		#if(self.action_client.get_result == 
+
+		#self.pub_move_base_simple.publish(pose)
+
+	def handle(self, goal):
+		self.action_client.send_goal(goal)
+		self.action_client.wait_for_result()
+		print "result: "
+		print self.action_client.get_result()
