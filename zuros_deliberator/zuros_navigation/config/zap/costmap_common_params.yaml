@@ -1,13 +1,8 @@
-# for details see: http://www.ros.org/wiki/navigation/Tutorials/RobotSetup
-
 obstacle_range: 2.5
-raytrace_range: 3.0
-#footprint: [[0.35, 0.35],[0.35,-0.35],[-0.35,-0.35],[-0.35,0.35]] #cob footprint
-footprint: [[0.16, 0.3], [-0.51, 0.225], [-0.51, -0.225], [0.16, -0.3], [0.29, 0]] #delft footprint
-#robot_radius: 0.5
-inflation_radius: 0.28
-max_obstacle_height: 1.4
-min_obstacle_height: -1
+raytrace_range: 8.0
+footprint: [[0.25, -0.33], [0.25, 0.33], [-0.55, 0.27], [-0.55, -0.27]]
+inflation_radius: 0.3
 
-observation_sources: xtion
-xtion: {sensor_frame: camera_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+observation_sources: laser_scan_sensor
+
+laser_scan_sensor: {sensor_frame: camera_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true, expected_update_rate: 0.2}
