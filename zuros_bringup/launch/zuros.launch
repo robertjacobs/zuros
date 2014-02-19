@@ -1,4 +1,16 @@
 <launch>
+
+	<!-- launch openni -->
+	<include file="$(find openni2_launch)/launch/openni2.launch" />
+
+	<!-- launch remapper from /camera/depth_registerd to /scan topic. This will make a laser scanner out of primesense camera -->
+	<node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+     	<remap from="image" to="/camera/depth/image_raw"/>
+   	</node>
+
+	<!-- launch emergency stop -->
+	<!--<node name="zuros_emergency_stop_node" pkg="zuros_emergency_stop" type="emergency_scanner.py" output="screen"/>-->
+
 	<!-- launch joystick -->
 	<node name="zuros_joystick_node" pkg="joy" type="joy_node" output="screen"/>
 
@@ -10,7 +22,4 @@
 
 	<!-- launch threemxl controller -->
 	<!-- <node pkg="zuros_threemxlController" type="threemxlController" name="threemxlController_node" output="screen"/> -->
-
-	<!-- launch openni -->
-	<include file="$(find openni2_launch)/launch/openni2.launch" />
 </launch>
