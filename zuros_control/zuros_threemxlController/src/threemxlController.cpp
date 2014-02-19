@@ -13,10 +13,14 @@ void DPR2Base::init()
 	wheel_diameter_ = 0.30;
 	wheel_base_ = 0.54;
 
+	emergency_ = false;
+	// Subscribe to emergency topic
+	emergency_sub_ = nh_.subscribe("/emergency_stop", 10, &DPR2Base::emergencyCallback, this);
+
 	// Subscribe to movement topic
 	vel_sub_ = nh_.subscribe("/movement", 10, &DPR2Base::velocityCallback, this);
 
-	// For the ROS navigation it is important to publish the odometry in the odom topic	
+	// For the ROS navigation it is important to publish the odometry in the odom topic
 	odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
 
 	// The rate of retries in case of failure
@@ -24,7 +28,7 @@ void DPR2Base::init()
 
 	// Open serial port and set the speed
 	serial_port_.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
-     serial_port_.set_speed(LxSerial::S921600);
+	serial_port_.set_speed(LxSerial::S921600);
 
 	// Check if the serial port is open
 	while(ros::ok() && serial_port_.is_port_open() == false)
@@ -36,7 +40,7 @@ void DPR2Base::init()
 	CXMLConfiguration motor_config_xml;
 	//ROS_ASSERT(motor_config_xml.loadFile(motor_config_name));
 	ROS_ASSERT(motor_config_xml.loadFile("motors.xml"));
-	
+
 	CDxlConfig motor_config_left;
 	motor_config_left.readConfig(motor_config_xml.root().section("left"));
 	// Left motor
@@ -58,7 +62,7 @@ void DPR2Base::init()
 	motor_config_right.readConfig(motor_config_xml.root().section("right"));
 
 	right_motor_ = new C3mxl();
-	
+
 	right_motor_->setConfig(&motor_config_right);
 	right_motor_->setSerialPort(&serial_port_);
 
@@ -86,12 +90,25 @@ void DPR2Base::spin()
 		odometryPublish();
 		r.sleep();
 	}
-}	
+}
+
+void DPR2Base::emergencyCallback(const std_msgs::Bool::ConstPtr &msg)
+{
+	if(msg->data == true && emergency_ == false)
+	{
+		emergency_ = true;
+	}
+
+	else if(msg->data == false && emergency_ == true)
+	{
+		emergency_ = false;
+	}
+}
 
 /** Called when a new velocity command is published and sends the new velocity to the base motors
-	 * @param msg Pointer to geometry_msgs/Twist message, containing the linear and angular velocities, in [m/s] and [rad/s] respectively.
-	 * @note Since the base is nonholonomic, only linear velocities in the x direction and angular velocities around the z direction are supported.
-	 */
+* @param msg Pointer to geometry_msgs/Twist message, containing the linear and angular velocities, in [m/s] and [rad/s] respectively.
+* @note Since the base is nonholonomic, only linear velocities in the x direction and angular velocities around the z direction are supported.
+*/
 void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 {
 	// Base is nonholonomic, warn if sent a command we can't execute
@@ -108,17 +125,38 @@ void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 	}
 
 	// Calculate wheel velocities
-	double vel_linear  = msg->linear.x/(wheel_diameter_/2);
+	double vel_linear = msg->linear.x/(wheel_diameter_/2);
 	double vel_angular = msg->angular.z * (wheel_base_/wheel_diameter_);
 
-	double vel_left    = vel_linear - vel_angular;
-	double vel_right   = vel_linear + vel_angular;
+	double vel_left = vel_linear - vel_angular;
+	double vel_right = vel_linear + vel_angular;
 
 	// Actuate
-	left_motor_->setSpeed(vel_left);
-	right_motor_->setSpeed(vel_right);
+	if(!emergency_)
+	{
+		left_motor_->setSpeed(vel_left);
+		right_motor_->setSpeed(vel_right);
+		ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
+	}
 
-	ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
+	// Emergency stop is issued, but we are still allowed to drive backwards with the laser on the front of the robot	
+	else
+	{
+		// Want to drive backwards (maybe joystick override to get stuck robot unstuck?) ?
+		if((vel_left < 0 && vel_right < 0) || (vel_left == 0 && vel_right == 0))
+		{
+			left_motor_->setSpeed(vel_left);
+			right_motor_->setSpeed(vel_right);
+		}
+
+		// Does not want to drive backwards, command ignored
+		else
+		{
+			left_motor_->setSpeed(0);
+			right_motor_->setSpeed(0);
+			ROS_INFO("Emergency stop issued, motor command ignored");
+		}
+	}
 }
 
 /** Reads the current state of the wheels and publishes this to the topic */

@@ -16,6 +16,7 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
 #include <threemxl/LxFTDI.h>
+#include "std_msgs/Bool.h"
 
 /// Basic DPR2 base controller class
 /**
@@ -31,6 +32,9 @@ protected:
 	ros::NodeHandle nh_; 							/** The ROS nodehandle */
 	ros::Subscriber vel_sub_; 						/** Subscriber for velocity topic */
 	ros::Publisher odom_pub_; 						/** Publisher for the odemetry status */
+
+	ros::Subscriber emergency_sub_; 				/** Subscriber for the emergency stop topic */
+	bool emergency_;
 
 	LxSerial serial_port_; 							/** Serial port to communicate with the motors */
 	CDxlGeneric *left_motor_, *right_motor_; 			/** Left and right motor objects */
@@ -54,6 +58,11 @@ protected:
 	 * @note Since the base is nonholonomic, only linear velocities in the x direction and angular velocities around the z direction are supported.
 	 */
 	void velocityCallback(const geometry_msgs::Twist::ConstPtr &msg);
+
+	/** Called when a new emergency status message is published
+	* @param msg Pointer to std_msgs:Bool message, containing the current status of the emergency stop.
+	*/
+	void emergencyCallback(const std_msgs::Bool::ConstPtr & msg);
 
 	/** Reads the current state of the wheels and publishes this to the topic */
 	void odometryPublish();
