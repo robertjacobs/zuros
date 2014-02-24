@@ -36,6 +36,12 @@ threemxl/LxFTDI.h
 threemxl/dxlassert.h
 -
 
+/home/robot/git/zuros/zuros_control/zuros_threemxlController/src/threemxlController_main.cpp
+ros/ros.h
+/home/robot/git/zuros/zuros_control/zuros_threemxlController/src/ros/ros.h
+zuros_threemxl_controller/threemxlController.h
+/home/robot/git/zuros/zuros_control/zuros_threemxlController/src/zuros_threemxl_controller/threemxlController.h
+
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h
 -

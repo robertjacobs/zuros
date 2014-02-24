@@ -27,14 +27,19 @@ void DPR2Base::init()
 	ros::Rate init_rate(1);
 
 	// Open serial port and set the speed
-	serial_port_.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
-	serial_port_.set_speed(LxSerial::S921600);
+	//serial_port_.port_open("/dev/ttyUSB0", LxSerial::RS485_FTDI);
+	//serial_port_.set_speed(LxSerial::S921600);
+
+	//LXFTDI
+	serial_port_ = new LxFTDI();
+	serial_port_->port_open("i:0x0403:0x6001", LxSerial::RS485_FTDI);
+	serial_port_->set_speed_int(921600);
 
 	// Check if the serial port is open
-	while(ros::ok() && serial_port_.is_port_open() == false)
-	{
-		ROS_WARN_ONCE("Serial port seems to be closed, will continue trying every second");
-	}
+	//while(ros::ok() && serial_port_->is_port_open() == false)
+	//{
+	//	ROS_WARN_ONCE("Serial port seems to be closed, will continue trying every second");
+	//}
 
 	// Load motor configuration
 	CXMLConfiguration motor_config_xml;
@@ -46,7 +51,8 @@ void DPR2Base::init()
 	// Left motor
 	left_motor_ = new C3mxl();
 	left_motor_->setConfig(&motor_config_left);
-	left_motor_->setSerialPort(&serial_port_);
+	//left_motor_->setSerialPort(&serial_port_);
+	left_motor_->setSerialPort(serial_port_);
 
 	// Initialize the left motor
 	while (ros::ok() && left_motor_->init() != DXL_SUCCESS)
@@ -64,7 +70,8 @@ void DPR2Base::init()
 	right_motor_ = new C3mxl();
 
 	right_motor_->setConfig(&motor_config_right);
-	right_motor_->setSerialPort(&serial_port_);
+	//right_motor_->setSerialPort(&serial_port_);
+	right_motor_->setSerialPort(serial_port_);
 
 	// Initialize the right motor
 	while (ros::ok() && right_motor_->init() != DXL_SUCCESS)

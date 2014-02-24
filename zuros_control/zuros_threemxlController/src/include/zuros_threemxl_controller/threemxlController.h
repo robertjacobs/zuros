@@ -36,7 +36,8 @@ protected:
 	ros::Subscriber emergency_sub_; 				/** Subscriber for the emergency stop topic */
 	bool emergency_;
 
-	LxSerial serial_port_; 							/** Serial port to communicate with the motors */
+	//LxSerial serial_port_; 							/** Serial port to communicate with the motors */
+	LxSerial *serial_port_;	
 	CDxlGeneric *left_motor_, *right_motor_; 			/** Left and right motor objects */
 	CDxlConfig *config_left_motor_, *config_right_motor_;  /** Left and right motor config objects */
 	double wheel_diameter_, wheel_base_; 			     /** The platform wheel diameter and wheel base */
@@ -78,16 +79,17 @@ public:
 	/** Destructor. Deletes the left and right motor object, closes the serial port and shuts the node down */
 	~DPR2Base()
 	{
+
+		//if(serial_port_.is_port_open())
+		//{
+		//	serial_port_.port_close();
+		//}
+
 		delete left_motor_;
 		delete right_motor_;
 		delete config_left_motor_;
 		delete config_right_motor_;
-	
-		if(serial_port_.is_port_open())
-		{
-			serial_port_.port_close();
-		}
-
+		delete serial_port_;
 		nh_.shutdown();
 	}
 
