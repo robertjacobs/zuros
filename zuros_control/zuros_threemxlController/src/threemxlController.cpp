@@ -111,116 +111,132 @@ void DPR2Base::emergencyCallback(const std_msgs::Bool::ConstPtr &msg)
 */
 void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 {
-	// Base is nonholonomic, warn if sent a command we can't execute
-	if (msg->linear.y || msg->linear.z || msg->angular.x || msg->angular.y)
-	{
-		ROS_WARN("It is not possible for me to translate this command to the robot - maybe you set the base type in navigation config to holonomic instead of nonholonomic or vice versa?");
-		return;
-	}
+	try
+  	{	
+		// Base is nonholonomic, warn if sent a command we can't execute
+		if (msg->linear.y || msg->linear.z || msg->angular.x || msg->angular.y)
+		{
+			ROS_WARN("It is not possible for me to translate this command to the robot - maybe you set the base type in navigation config to holonomic instead of nonholonomic or vice versa?");
+			return;
+		}
 
-	if(isnan(msg->linear.x) || isnan(msg->angular.z) || isinf(msg->linear.x) || isinf(msg->angular.z))
-	{
-		ROS_WARN("I cant travel at infinite speed. Sorry");
-		return;
-	}
+		if(isnan(msg->linear.x) || isnan(msg->angular.z) || isinf(msg->linear.x) || isinf(msg->angular.z))
+		{
+			ROS_WARN("I cant travel at infinite speed. Sorry");
+			return;
+		}
 
-	// Calculate wheel velocities
-	double vel_linear = msg->linear.x/(wheel_diameter_/2);
-	double vel_angular = msg->angular.z * (wheel_base_/wheel_diameter_);
+		// Calculate wheel velocities
+		double vel_linear = msg->linear.x/(wheel_diameter_/2);
+		double vel_angular = msg->angular.z * (wheel_base_/wheel_diameter_);
 
-	double vel_left = vel_linear - vel_angular;
-	double vel_right = vel_linear + vel_angular;
+		double vel_left = vel_linear - vel_angular;
+		double vel_right = vel_linear + vel_angular;
 
-	// Actuate
-	if(!emergency_)
-	{
-		left_motor_->setSpeed(vel_left);
-		right_motor_->setSpeed(vel_right);
-		ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
-	}
-
-	// Emergency stop is issued, but we are still allowed to drive backwards with the laser on the front of the robot	
-	else
-	{
-		// Want to drive backwards (maybe joystick override to get stuck robot unstuck?) ?
-		if((vel_left < 0 && vel_right < 0) || (vel_left == 0 && vel_right == 0))
+		// Actuate
+		if(!emergency_)
 		{
 			left_motor_->setSpeed(vel_left);
 			right_motor_->setSpeed(vel_right);
+			ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
 		}
 
-		// Does not want to drive backwards, command ignored
+		// Emergency stop is issued, but we are still allowed to drive backwards with the laser on the front of the robot	
 		else
 		{
-			left_motor_->setSpeed(0);
-			right_motor_->setSpeed(0);
-			ROS_INFO("Emergency stop issued, motor command ignored");
+			// Want to drive backwards (maybe joystick override to get stuck robot unstuck?) ?
+			if((vel_left < 0 && vel_right < 0) || (vel_left == 0 && vel_right == 0))
+			{
+				left_motor_->setSpeed(vel_left);
+				right_motor_->setSpeed(vel_right);
+			}
+
+			// Does not want to drive backwards, command ignored
+			else
+			{
+				left_motor_->setSpeed(0);
+				right_motor_->setSpeed(0);
+				ROS_INFO("Emergency stop issued, motor command ignored");
+			}
 		}
 	}
+	
+	catch (int e)
+  	{
+    		ROS_INFO("An exception occurred in velocity callback");
+  	}
 }
 
 /** Reads the current state of the wheels and publishes this to the topic */
 void DPR2Base::odometryPublish()
 {
-	left_motor_->getState();
-	right_motor_->getState();
+	try
+	{
+		left_motor_->getState();
+		right_motor_->getState();
 
-	double left = left_motor_->presentSpeed();
-	double right = right_motor_->presentSpeed();
+		double left = left_motor_->presentSpeed();
+		double right = right_motor_->presentSpeed();
 
-	vx_ = (wheel_diameter_ / 4) * (left + right);
-	vth_ = ((wheel_diameter_ / 2) / wheel_base_) * (right - left);
+		vx_ = (wheel_diameter_ / 4) * (left + right);
+		vth_ = ((wheel_diameter_ / 2) / wheel_base_) * (right - left);
 
-	current_time_ = ros::Time::now();
+		current_time_ = ros::Time::now();
 
-	//compute odometry in a typical way given the velocities of the robot
-	double dt = (current_time_ - last_time_).toSec();
-	double delta_x = (vx_ * cos(th_)) * dt;
-	double delta_y = (vx_ * sin(th_)) * dt;
-	double delta_th = vth_ * dt;
-	double delta_dist_ = vx_ *dt;
+		//compute odometry in a typical way given the velocities of the robot
+		double dt = (current_time_ - last_time_).toSec();
+		double delta_x = (vx_ * cos(th_)) * dt;
+		double delta_y = (vx_ * sin(th_)) * dt;
+		double delta_th = vth_ * dt;
+		double delta_dist_ = vx_ *dt;
 
-	x_ += delta_x;
-	y_ += delta_y;
-	th_ += delta_th;
-	dist_ += delta_dist_;
+		x_ += delta_x;
+		y_ += delta_y;
+		th_ += delta_th;
+		dist_ += delta_dist_;
 
-	//since all odometry is 6DOF we'll need a quaternion created from yaw
-	geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th_);
+		//since all odometry is 6DOF we'll need a quaternion created from yaw
+		geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th_);
 
-	//first, we'll publish the transform over tf
-	geometry_msgs::TransformStamped odom_trans;
-	odom_trans.header.stamp = current_time_;
-	odom_trans.header.frame_id = "odom";
-	odom_trans.child_frame_id = "base_link";
+		//first, we'll publish the transform over tf
+		geometry_msgs::TransformStamped odom_trans;
+		odom_trans.header.stamp = current_time_;
+		odom_trans.header.frame_id = "odom";
+		odom_trans.child_frame_id = "base_link";
 
-	odom_trans.transform.translation.x = x_;
-	odom_trans.transform.translation.y = y_;
-	odom_trans.transform.translation.z = 0.0;
-	odom_trans.transform.rotation = odom_quat;
+		odom_trans.transform.translation.x = x_;
+		odom_trans.transform.translation.y = y_;
+		odom_trans.transform.translation.z = 0.0;
+		odom_trans.transform.rotation = odom_quat;
 
-	//send the transform
-	odom_broadcaster_.sendTransform(odom_trans);
+		//send the transform
+		odom_broadcaster_.sendTransform(odom_trans);
 
-	//next, we'll publish the odometry message over ROS
-	nav_msgs::Odometry odom;
-	odom.header.stamp = current_time_;
-	odom.header.frame_id = "odom";
-	odom.child_frame_id = "base_link";
+		//next, we'll publish the odometry message over ROS
+		nav_msgs::Odometry odom;
+		odom.header.stamp = current_time_;
+		odom.header.frame_id = "odom";
+		odom.child_frame_id = "base_link";
 
-	//set the position
-	odom.pose.pose.position.x = x_;
-	odom.pose.pose.position.y = y_;
-	odom.pose.pose.position.z = 0.0;
-	odom.pose.pose.orientation = odom_quat;
+		//set the position
+		odom.pose.pose.position.x = x_;
+		odom.pose.pose.position.y = y_;
+		odom.pose.pose.position.z = 0.0;
+		odom.pose.pose.orientation = odom_quat;
 
-	//set the velocity
-	odom.twist.twist.linear.x = vx_;
-	odom.twist.twist.linear.y = 0.0;
-	odom.twist.twist.angular.z = vth_;
+		//set the velocity
+		odom.twist.twist.linear.x = vx_;
+		odom.twist.twist.linear.y = 0.0;
+		odom.twist.twist.angular.z = vth_;
 
-	//publish the message
-	odom_pub_.publish(odom);
+		//publish the message
+		odom_pub_.publish(odom);
 
-	last_time_ = current_time_;
+		last_time_ = current_time_;
+	}
+
+	catch (int e)
+  	{
+    		ROS_INFO("An exception occurred in odometry publish");
+  	}
 }
