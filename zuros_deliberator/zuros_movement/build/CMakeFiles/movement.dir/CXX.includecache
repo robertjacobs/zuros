@@ -46,12 +46,6 @@ zuros_movement/movement.h
 sstream
 -
 
-/home/robot/git/zuros/zuros_deliberator/zuros_movement/src/movement_main.cpp
-ros/ros.h
-/home/robot/git/zuros/zuros_deliberator/zuros_movement/src/ros/ros.h
-zuros_movement/movement.h
-/home/robot/git/zuros/zuros_deliberator/zuros_movement/src/zuros_movement/movement.h
-
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h
 -
