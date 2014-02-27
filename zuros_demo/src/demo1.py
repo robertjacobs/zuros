@@ -8,7 +8,7 @@ import time
 class Demo1(object):
 	def __init__(self):
 		rospy.on_shutdown(self.cleanup)		
-		rospy.init_node('demo1_node', anonymous=True)
+		rospy.init_node('demo1_node', anonymous=False)
 
 		self.motor_pub = rospy.Publisher('cmd_vel', Twist)
 
