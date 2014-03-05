@@ -5,7 +5,7 @@
 \b zuros_emergency_stop 
 
 <!-- 
-Provide an overview of your package.
+This package will publish an emergency stop message when there are too many unknown points in depth image
 -->
 
 -->

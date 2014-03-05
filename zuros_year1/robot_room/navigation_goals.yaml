@@ -1,4 +1,6 @@
-#[x,y,theta]
+# Add your own navigation goals
+# If you add a new command button in command_gui_buttons.yaml and it is related to a move base command, make sure that you add the position here. Otherwise the software will throw an error that the position you are trying to send is unknown
+#Format: [name] : [[x],[y],[theta]]
 home: [-1, 0, 1]
 kitchen: [-1.5,1,1]
 sofa: [-1.5,0,1]

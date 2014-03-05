@@ -5,7 +5,7 @@
 \b zuros_movement 
 
 <!-- 
-Provide an overview of your package.
+This package will listen for cmd_vel messages and joy messages and will publish either cmd_vel messages or joy messages based on if the "user override" button on the joystick was pressed
 -->
 
 -->

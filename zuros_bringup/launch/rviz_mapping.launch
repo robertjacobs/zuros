@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <launch>
+	<!-- no gui -->
 	<arg name="gui" default="False" />
 	<param name="use_gui" value="$(arg gui)"/>
+	<!-- load rviz using the configuration file zuros_bringup/config/rviz_config_gmapping.rviz -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find zuros_bringup)/config/rviz_config_gmapping.rviz" required="true" />
 </launch>

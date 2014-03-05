@@ -1,7 +1,10 @@
+<?xml version="1.0"?>
 <launch>
-
 	<!-- Run a static transform between /base_link and /laser_scan -->
-	<!-- xtion is mounted 27,45 cm from the center of the base on the x-axis, -3.5cm on the y-axis and -7.75cm (below frame) on the z-axis -->
+	<!-- xtion is mounted 27,45 cm from the center of the base on the x-axis, -3.5cm on the y-axis and 0cm on the z-axis -->
+	<!-- note: the laser scanner is not mounted at 0cm on the z-axis. 0cm is needed because the costmap cannot handle negative numbers-->
+	<!-- TODO: find out a way to provide a negative z-axis number to the costmap -->
+
 	<!-- Format: x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
 	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_scan" args="0.2745 -0.035 0 0 0 135.1 /base_link /camera_link 100"/>
 
@@ -14,7 +17,7 @@
    	</node>
 
 	<!-- launch emergency stop -->
-	<!--<node name="zuros_emergency_stop_node" pkg="zuros_emergency_stop" type="emergency_scanner.py" output="screen"/>-->
+	<node name="zuros_emergency_stop_node" pkg="zuros_emergency_stop" type="emergency_scanner.py" output="screen"/>
 
 	<!-- launch joystick -->
 	<node name="zuros_joystick_node" pkg="joy" type="joy_node" output="screen"/>

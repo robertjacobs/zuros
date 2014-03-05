@@ -5,7 +5,7 @@
 \b zuros_zwave_poller 
 
 <!-- 
-Provide an overview of your package.
+Polls zwave sensor topics and handles
 -->
 
 -->

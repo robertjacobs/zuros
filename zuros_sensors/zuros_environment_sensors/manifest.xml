@@ -4,7 +4,7 @@
      zuros_environment_sensors
 
   </description>
-  <author>robot</author>
+  <author>Robert Jacobs</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/zuros_environment_sensors</url>
