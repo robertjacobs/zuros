@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- launch movement -->
+	<node pkg="zuros_movement" type="movement" name="movement_node" output="screen"/>
+</launch>
