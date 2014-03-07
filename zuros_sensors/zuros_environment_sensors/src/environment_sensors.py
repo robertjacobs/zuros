@@ -61,7 +61,7 @@ class FibaroZWaveHomeController(PollingProcessor):
         self._warned = []
 
         # Holds the added sensors
-        self._sensorsAdded = []
+        self._sensors_added = []
 
         # The topic publishers
         self._sensor_publisher = rospy.Publisher('ZWAVE_SENSORS', MSG_ZWAVE_SENSORS)
@@ -112,11 +112,11 @@ class FibaroZWaveHomeController(PollingProcessor):
             try:
                 # The fibaro home controller has 3 "devices", which are no real devices, called admin, weather and zwave. Need to filter those since they are of no interest to us
                 if(str(device['name']) != str("admin") and str(device['name']) != str("weather") and str(device['name']) != str("zwave")):
-                    sensor = next(s for s in self._sensorsAdded if str(s['id']) == str(communication_id))
+                    sensor = next(s for s in self._sensors_added if str(s['id']) == str(communication_id))
 
             except StopIteration:
                 device['id'] = communication_id
-                self._sensorsAdded.append(device)
+                self._sensors_added.append(device)
                 rospy.loginfo(rospy.get_name() + " Added sensor with name %s" % device['name'])
                 continue
 
@@ -125,7 +125,7 @@ class FibaroZWaveHomeController(PollingProcessor):
         for device in data:
             # Format the communication ID to ZWAVE:[id]
             communication_id = "ZWAVE:" + str(device['id'])
-            for sensor in self._sensorsAdded:
+            for sensor in self._sensors_added:
                 if(str(sensor['id']) == str(communication_id)):
                     if(str(sensor['properties']['value']) != str(device['properties']['value'])):
                         sensor['properties']['value'] = device['properties']['value']
@@ -133,7 +133,7 @@ class FibaroZWaveHomeController(PollingProcessor):
                         rospy.loginfo(rospy.get_name() + " Value changed for device %s" % device['name'])
         
         # Publishes every sensor to topic so that other node knows which sensors are available
-        for sensor in self._sensorsAdded:
+        for sensor in self._sensors_added:
             self._sensor_publisher.publish(MSG_ZWAVE_STATUS(name=sensor['name'],value=sensor['properties']['value'],communication_id=sensor['id']))
 
 ## Check if this is a class call or a program call
@@ -155,6 +155,9 @@ if __name__ == '__main__':
         # If we found a sensor, add it to the list
         if sensor != None:
             sensorList.append(sensor)
+
+        else:
+            rospy.loginfo(rospy.get_name() + " You have a sensor type in your config which you either forgot to add to the code or you made a typo")
     
     # For each sensor in the list, start the polling
     for sensor in sensorList:

@@ -42,6 +42,7 @@ import rospy
 from std_msgs.msg import Bool
 from geometry_msgs.msg import Twist
 import time
+import random
 
 ## Demo1 class
 class Demo1(object):
@@ -93,7 +94,7 @@ class Demo1(object):
 
     ## Turn left function
     # Will command the motors to turn left
-    def turnLeft(self,speed):
+    def turn_left(self,speed):
         # create a twist message, fill in the details
         twist = Twist()
         twist.linear.x = 0;                         # no forward or backward speed
@@ -104,7 +105,7 @@ class Demo1(object):
 
     ## Turn right function
     # Will command the motors to turn right
-    def turnRight(self):
+    def turn_right(self):
         # create a twist message, fill in the details
         twist = Twist()
         twist.linear.x = 0;                         # no forward or backward speed
@@ -128,7 +129,9 @@ class Demo1(object):
     def run(self, speed_x):
         while True:
             print "forward"
-            
+
+            turn_right = False            
+
             while (self.emergency == False):
                 self.forward(speed_x)
                 pass
@@ -155,8 +158,21 @@ class Demo1(object):
             time.sleep(2)
 
             # object is gone, now turn
+
+            # Create a (pseudo!) random number to decide if the robot should turn left or right
+            rand = random.randint(0,9)
+
+            # Turn right or left?
+            if(rand >= 5):
+                turn_right = True
+
+            # Turn
             for x in range (0,3):
-                self.turnLeft(speed_x)
+                # Left or right?
+                if(turn_right):
+                    self.turn_right(speed_x)
+                else:
+                    self.turn_left(speed_x)
                 time.sleep(1)
 
             time.sleep(3)
