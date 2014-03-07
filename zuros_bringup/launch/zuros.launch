@@ -1,32 +1,19 @@
 <?xml version="1.0"?>
 <launch>
-	<!-- Run a static transform between /base_link and /laser_scan -->
-	<!-- xtion is mounted 27,45 cm from the center of the base on the x-axis, -3.5cm on the y-axis and 0cm on the z-axis -->
-	<!-- note: the laser scanner is not mounted at 0cm on the z-axis. 0cm is needed because the costmap cannot handle negative numbers-->
-	<!-- TODO: find out a way to provide a negative z-axis number to the costmap -->
-
-	<!-- Format: x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_scan" args="0.2745 -0.035 0 0 0 135.1 /base_link /camera_link 100"/>
-
-	<!-- launch openni -->
-	<include file="$(find openni2_launch)/launch/openni2.launch" />
-
-	<!-- launch remapper from /camera/depth_registerd to /scan topic. This will make a laser scanner out of primesense camera -->
-	<node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
-     	<remap from="image" to="/camera/depth/image_raw"/>
-   	</node>
+	<!-- launch xtion laser scan -->
+	<include file="$(find zuros_depth)/launch/depth.launch" />
 
 	<!-- launch emergency stop -->
 	<node name="zuros_emergency_stop_node" pkg="zuros_emergency_stop" type="emergency_scanner.py" output="screen"/>
 
 	<!-- launch joystick -->
-	<node name="zuros_joystick_node" pkg="joy" type="joy_node" output="screen"/>
+    <include file="$(find zuros_ROS_joy)/launch/joy.launch" />
 
 	<!-- launch laptop battery monitor -->
-	<node name="zuros_laptop_battery_node" pkg="zuros_laptop" type="laptop_battery.py" output="screen"/>
+	<node name="zuros_laptop_battery_node" pkg="zuros_laptop" type="zuros_laptop.py" output="screen"/>
 
 	<!-- launch movement -->
-	<node pkg="zuros_movement" type="movement" name="movement_node" output="screen"/>
+    <include file="$(find zuros_movement)/launch/movement.launch" />
 
 	<!-- launch threemxl controller -->
 	<!-- <node pkg="zuros_threemxlController" type="threemxlController" name="threemxlController_node" output="screen"/> -->
