@@ -82,86 +82,6 @@ class CommandGUI():
         # Close main window
         gtk.main_quit()
         return False
-    
-    ## Handler for the laptop battery status topic
-    # @param msg The message on the topic
-    def callback_laptop_battery(self, msg):
-        # Write the message contents to the status bar
-        self.write_battery_info_to_status_bar(msg.name, msg.state, msg.percentage, msg.remaining)
-
-    ## Handler for the emergency stop status topic
-    # Will show a popup balloon on the pc screen if there is a status change
-    # @param msg The message
-    def callback_emergency_stop(self, msg):
-        # There was no emergency stop situation, but now it is, notify and set emergency stop to true.
-        if(msg.data == True and self.emergency == False):
-            print "Emergency stop issued"
-            self.emergency = True
-
-            # Create a popup balloon on the screen
-            n = pynotify.Notification("Emergency stop issued", "", "dialog-warning")
-            n.set_timeout(1)
-            n.show()
-        # There was an emergency stop situation, but now it is over, notify and set emergency stop to false.
-        elif(msg.data == False and self.emergency == True):
-            print "Emergency stop released"
-            self.emergency = False
-            # Create a popup balloon on the screen
-            n = pynotify.Notification("Emergency stop released", "", "dialog-ok")
-            n.set_timeout(1)
-            n.show()
-
-    ## Will write the battery status to the status bar
-    # @param name The name of the battery
-    # @param state The state of the battery
-    # @param percentage The percentage of the battery
-    # @param remaining The remaining time of the battery
-    def write_battery_info_to_status_bar(self, name, state, percentage, remaining):
-        # Check if we are in emergency mode
-        if(self.emergency == False):
-            # Not in emergency mode, so we can write the battery status to the status bar
-            gtk.threads_enter()
-            context_id = self.status_bar.get_context_id("Statusbar")
-            string = "Connected to $ROS_MASTER_URI=" + os.environ.get("ROS_MASTER_URI") + "              Status of " + name + " is: " + state + ", " + percentage + "%, " + remaining  
-            self.status_bar.push(context_id, string)
-            gtk.threads_leave()
-        
-        # Detect a status change of the battery (e.g. battery cable unplugged or plugged)
-        if(state != self.battery_state):
-            # The charging cable was disconnected, but is now connected
-            if(state == "Charging"):
-                # Create a popup balloon on the screen
-                n = pynotify.Notification("Laptop charging cable connected", "", "dialog-ok")
-                n.set_timeout(1)
-                n.show()
-
-            # The charging cable was connected, but is now disconnected
-            elif(state == "Discharging"):
-                # Create a popup balloon on the screen
-                n = pynotify.Notification("Laptop charging cable unplugged", "", "dialog-warning")
-                n.set_timeout(1)
-                n.show()
-
-            # Update the battery state to the current state
-            self.battery_state = state
-
-        # If the battery is getting low, it is good to notify the operator
-        if(percentage <= 15 and self.battery_low_notified == False):
-            # Create a popup balloon on the screen
-            n = pynotify.Notification("Laptop battery is running low", "", "dialog-warning")
-            n.set_timeout(1)
-            n.show()
-            # Prevent popup spam
-            self.battery_low_notified = True
-
-        # If the battery is critically low, it is good to notify the operator
-        elif(percentage <= 8 and self.battery_critical_notified == False):
-            # Create a popup balloon on the screen
-            n = pynotify.Notification("Laptop battery is running low", "", "dialog-warning")
-            n.set_timeout(1)
-            n.show()
-            # Prevent popup spam
-            self.battery_critical_notified = True
 
     ## Constructor
     def __init__(self):
@@ -231,7 +151,89 @@ class CommandGUI():
         gtk.gdk.threads_init()
         gtk.gdk.threads_enter()
         gtk.main()
-        gtk.gdk.threads_leave()
+        gtk.gdk.threads_leave()  
+  
+    ## Handler for the laptop battery status topic
+    # @param msg The message on the topic
+    def callback_laptop_battery(self, msg):
+        # Write the message contents to the status bar
+        self.write_battery_info_to_status_bar(msg.name, msg.state, msg.percentage, msg.remaining)
+
+    ## Handler for the emergency stop status topic
+    # Will show a popup balloon on the pc screen if there is a status change
+    # @param msg The message
+    def callback_emergency_stop(self, msg):
+        # There was no emergency stop situation, but now it is, notify and set emergency stop to true.
+        if(msg.data == True and self.emergency == False):
+            print "Emergency stop issued"
+            self.emergency = True
+
+            # Create a popup balloon on the screen
+            n = pynotify.Notification("Emergency stop issued", "", "dialog-warning")
+            n.set_timeout(1)
+            n.show()
+        # There was an emergency stop situation, but now it is over, notify and set emergency stop to false.
+        elif(msg.data == False and self.emergency == True):
+            print "Emergency stop released"
+            self.emergency = False
+            # Create a popup balloon on the screen
+            n = pynotify.Notification("Emergency stop released", "", "dialog-ok")
+            n.set_timeout(1)
+            n.show()
+
+    ## Will write the battery status to the status bar
+    # @param name The name of the battery
+    # @param state The state of the battery
+    # @param percentage The percentage of the battery
+    # @param remaining The remaining time of the battery
+    def write_battery_info_to_status_bar(self, name, state, percentage, remaining):
+        # Check if we are in emergency mode
+        if(self.emergency == False):
+            # Not in emergency mode, so we can write the battery status to the status bar
+            gtk.threads_enter()
+            context_id = self.status_bar.get_context_id("Statusbar")
+            string = "Connected to $ROS_MASTER_URI=" + os.environ.get("ROS_MASTER_URI") + "              Status of " + name + " is: " + state + ", " + percentage + "%, " + remaining  
+            self.status_bar.push(context_id, string)
+            gtk.threads_leave()
+        
+        # Detect a status change of the battery (e.g. battery cable unplugged or plugged)
+        if(state != self.battery_state):
+            # The charging cable was disconnected, but is now connected
+            if(state == "Charging"):
+                # Create a popup balloon on the screen
+                self.battery_critical_notified = False
+                self.battery_low_notified = False
+                n = pynotify.Notification("Laptop charging cable connected", "", "dialog-ok")
+                n.set_timeout(1)
+                n.show()
+
+            # The charging cable was connected, but is now disconnected
+            elif(state == "Discharging"):
+                # Create a popup balloon on the screen
+                n = pynotify.Notification("Laptop charging cable unplugged", "", "dialog-warning")
+                n.set_timeout(1)
+                n.show()
+
+            # Update the battery state to the current state
+            self.battery_state = state
+
+        # If the battery is getting low, it is good to notify the operator
+        if(percentage <= 15 and self.battery_low_notified == False):
+            # Create a popup balloon on the screen
+            n = pynotify.Notification("Laptop battery is running low", "", "dialog-warning")
+            n.set_timeout(1)
+            n.show()
+            # Prevent popup spam
+            self.battery_low_notified = True
+
+        # If the battery is critically low, it is good to notify the operator
+        elif(percentage <= 8 and self.battery_critical_notified == False):
+            # Create a popup balloon on the screen
+            n = pynotify.Notification("Laptop battery is running low", "", "dialog-warning")
+            n.set_timeout(1)
+            n.show()
+            # Prevent popup spam
+            self.battery_critical_notified = True
 
 ## The signal handler for the shutting down event
 def signal_handler(signal, frame):
