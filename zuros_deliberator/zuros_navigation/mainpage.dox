@@ -5,7 +5,7 @@
 \b zuros_navigation 
 
 <!-- 
-Provide an overview of your package.
+Package contains launch file and parameters to start and use the ROS navigation
 -->
 
 -->

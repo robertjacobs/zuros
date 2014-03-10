@@ -5,7 +5,7 @@
 \b zuros_environment_sensors 
 
 <!-- 
-Provide an overview of your package.
+Polls environment sensors and publishes their status
 -->
 
 -->

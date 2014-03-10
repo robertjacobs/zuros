@@ -5,7 +5,7 @@
 \b zuros_bringup 
 
 <!-- 
-Provide an overview of your package.
+This package makes you able to start the robot and rviz using the launch files in the launch directory
 -->
 
 -->

@@ -2,10 +2,10 @@
 \mainpage
 \htmlinclude manifest.html
 
-\b zuros_zwave_poller 
+\b zuros_ROS_joy 
 
 <!-- 
-Polls zwave sensor topics and handles
+Provide an overview of your package.
 -->
 
 -->

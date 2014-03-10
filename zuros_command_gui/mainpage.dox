@@ -5,7 +5,7 @@
 \b zuros_command_gui 
 
 <!-- 
-Provide an overview of your package.
+This package creates a command gui for the robot. With this gui you can send simple goals to the robot (e.g. set pose)
 -->
 
 -->

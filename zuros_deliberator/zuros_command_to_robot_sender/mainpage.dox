@@ -5,7 +5,7 @@
 \b zuros_command_to_robot_sender 
 
 <!-- 
-Provide an overview of your package.
+This package will send the commands coming from the command gui to the robot
 -->
 
 -->

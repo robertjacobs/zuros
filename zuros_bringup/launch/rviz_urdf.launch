@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <launch>
+	<!-- load robot model -->
 	<arg name="model" default="$(find zuros_bringup)/robot_model/zuros/zuros.urdf"/>
+	<!-- no GUI -->
 	<arg name="gui" default="False" />
+	<!-- set robot description -->
 	<param name="robot_description" textfile="$(arg model)" />
+	<!-- set use_gui -->
 	<param name="use_gui" value="$(arg gui)"/>
-	<!--<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />-->
-	<!--<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />-->
+	<!-- load rviz using the configuration file zuros_bringup/config/rviz_config_zuros.rviz -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find zuros_bringup)/config/rviz_config_zuros.rviz" required="true" />
 </launch>

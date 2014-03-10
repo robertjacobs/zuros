@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- this file is not a complete robot model. To be precise this is a square base with a laser scanner attached. Feel free to add the wheels and other hardware -->
 <robot name="origins">
   <link name="base_link">
     <visual>

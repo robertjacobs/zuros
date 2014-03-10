@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <launch>
-
+	<!-- these arguments should be set in your bashrc -->
 	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
 	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
 	<arg name="pkg_robot_config" default="$(find zuros_year1)"/>	
+	
+	<!-- using the year1 package -->
 	<arg name="pkg_environment_config" default="$(find zuros_year1)"/>
 
 	<!-- start command_gui -->

@@ -1,17 +1,19 @@
 <package>
-  <description brief="zuros_emergency_stop">
+  <description brief="zuros_demo">
 
-     zuros_emergency_stop
+     zuros_demo
 
   </description>
   <author>Robert Jacobs</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/zuros_emergency_stop</url>
+  <url>http://ros.org/wiki/zuros_demo</url>
   <depend package="roscpp"/>
   <depend package="rospy"/>
-  <depend package="sensor_msgs"/>
   <depend package="std_msgs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+
 </package>
 
 

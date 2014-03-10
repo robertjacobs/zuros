@@ -4,11 +4,12 @@
      zuros_command_gui
 
   </description>
-  <author>robot</author>
+  <author>Robert Jacobs</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/zuros_command_gui</url>
   <depend package="rospy"/>
+
   <depend package="zuros_laptop"/>
   <depend package="zuros_command_to_robot_sender"/>
 </package>

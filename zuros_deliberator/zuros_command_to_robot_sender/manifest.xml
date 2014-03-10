@@ -4,7 +4,7 @@
      zuros_command_to_robot_sender
 
   </description>
-  <author>robot</author>
+  <author>Robert Jacobs</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/zuros_command_to_robot_sender</url>

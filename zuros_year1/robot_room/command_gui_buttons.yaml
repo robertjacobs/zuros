@@ -1,3 +1,5 @@
+# Add your own control buttons here.
+# Format: [title],[component],[action/position]
 group1:
   group_name: navigation_goals
   component_name: base

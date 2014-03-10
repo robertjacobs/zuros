@@ -1,13 +1,13 @@
 <package>
-  <description brief="zuros_navigation">
+  <description brief="zuros_ROS_joy">
 
-     zuros_navigation
+     zuros_ROS_joy
 
   </description>
   <author>Robert Jacobs</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/zuros_navigation</url>
+  <url>http://ros.org/wiki/zuros_ROS_joy</url>
 
 </package>
 

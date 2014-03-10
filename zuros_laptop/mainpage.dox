@@ -5,7 +5,7 @@
 \b zuros_laptop 
 
 <!-- 
-Provide an overview of your package.
+Reads the battery information of the laptop and publishes battery status on the laptop_status topic
 -->
 
 -->
