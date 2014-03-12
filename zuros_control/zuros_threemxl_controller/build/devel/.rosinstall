@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/build/devel/setup.sh

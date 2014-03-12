@@ -1,9 +1,0 @@
-#left motor
-string left_mode
-int32 left_accel
-int32 left_speed
-
-#right motor
-string right_mode
-int32 right_accel
-int32 right_speed
