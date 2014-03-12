@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/build/devel/setup.sh
