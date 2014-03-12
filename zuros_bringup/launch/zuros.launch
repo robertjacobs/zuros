@@ -4,17 +4,17 @@
 	<include file="$(find zuros_depth)/launch/depth.launch" />
 
 	<!-- launch emergency stop -->
-	<node name="zuros_emergency_stop_node" pkg="zuros_emergency_stop" type="emergency_scanner.py" output="screen"/>
+	<node name="zuros_emergency_stop_node" pkg="zuros_emergency_stop" type="emergency_stop.py" output="screen"/>
 
 	<!-- launch joystick -->
-    <include file="$(find zuros_ROS_joy)/launch/joy.launch" />
+  <include file="$(find zuros_ROS_joy)/launch/joy.launch" />
 
 	<!-- launch laptop battery monitor -->
 	<node name="zuros_laptop_battery_node" pkg="zuros_laptop" type="zuros_laptop.py" output="screen"/>
 
 	<!-- launch movement -->
-    <include file="$(find zuros_movement)/launch/movement.launch" />
+  <include file="$(find zuros_movement)/launch/movement.launch" />
 
-	<!-- launch threemxl controller -->
-	<!-- <node pkg="zuros_threemxlController" type="threemxlController" name="threemxlController_node" output="screen"/> -->
+  <!-- launch threemxl controller -->
+  <include file="$(find zuros_threemxl_controller)/launch/threemxl_controller.launch" />
 </launch>
