@@ -52,6 +52,7 @@
 #include <tf/transform_broadcaster.h>
 #include <threemxl/LxFTDI.h>
 #include "std_msgs/Bool.h"
+#include "zuros_motor_transformation/differential.h"
 
 /// Basic DPR2 base controller class
 /**
@@ -93,7 +94,7 @@ protected:
    * @param msg Pointer to geometry_msgs/Twist message, containing the linear and angular velocities, in [m/s] and [rad/s] respectively.
    * @note Since the base is nonholonomic, only linear velocities in the x direction and angular velocities around the z direction are supported.
    */
-  void velocityCallback(const geometry_msgs::Twist::ConstPtr &msg);
+  void velocityCallback(const zuros_motor_transformation::differential::ConstPtr &msg);
 
   /** Called when a new emergency status message is published
   * @param msg Pointer to std_msgs:Bool message, containing the current status of the emergency stop.

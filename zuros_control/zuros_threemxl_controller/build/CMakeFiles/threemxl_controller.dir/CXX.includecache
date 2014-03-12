@@ -23,6 +23,8 @@ threemxl/LxFTDI.h
 -
 std_msgs/Bool.h
 ../src/include/zuros_threemxl_controller/std_msgs/Bool.h
+zuros_motor_transformation/differential.h
+../src/include/zuros_threemxl_controller/zuros_motor_transformation/differential.h
 
 /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/threemxl_controller.cpp
 zuros_threemxl_controller/threemxl_controller.h
@@ -35,6 +37,8 @@ threemxl/LxFTDI.h
 -
 threemxl/dxlassert.h
 -
+zuros_motor_transformation/differential.h
+/home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/zuros_motor_transformation/differential.h
 
 /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/threemxl_controller_main.cpp
 ros/ros.h
@@ -43,6 +47,28 @@ zuros_threemxl_controller/threemxl_controller.h
 /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/zuros_threemxl_controller/threemxl_controller.h
 std_msgs/String.h
 /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/std_msgs/String.h
+
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/differential.h
+string
+-
+vector
+-
+map
+-
+ostream
+-
+ros/serialization.h
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/ros/serialization.h
+ros/builtin_message_traits.h
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/ros/builtin_message_traits.h
+ros/message_operations.h
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/ros/message_operations.h
+ros/time.h
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/ros/time.h
+ros/macros.h
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/ros/macros.h
+ros/assert.h
+/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/ros/assert.h
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h

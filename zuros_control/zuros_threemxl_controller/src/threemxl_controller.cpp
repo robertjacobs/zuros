@@ -38,6 +38,7 @@
 #include <threemxl/C3mxlROS.h>
 #include <threemxl/LxFTDI.h>
 #include <threemxl/dxlassert.h>
+#include "zuros_motor_transformation/differential.h"
 #define CLIP(x, l, u) ((x)<(l))?(l):((x)>(u))?(u):(x)
 
 /** Constructor
@@ -54,7 +55,7 @@ void DPR2Base::init(std::string config_file_location)
   emergency_sub_ = nh_.subscribe("/emergency_stop", 10, &DPR2Base::emergencyCallback, this);
 
   // Subscribe to movement topic
-  vel_sub_ = nh_.subscribe("/movement", 10, &DPR2Base::velocityCallback, this);
+  vel_sub_ = nh_.subscribe("/motor_transformation_differential", 10, &DPR2Base::velocityCallback, this);
 
   // For the ROS navigation it is important to publish the odometry in the odom topic
   odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
@@ -136,46 +137,33 @@ void DPR2Base::emergencyCallback(const std_msgs::Bool::ConstPtr &msg)
 * @param msg Pointer to geometry_msgs/Twist message, containing the linear and angular velocities, in [m/s] and [rad/s] respectively.
 * @note Since the base is nonholonomic, only linear velocities in the x direction and angular velocities around the z direction are supported.
 */
-void DPR2Base::velocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
+void DPR2Base::velocityCallback(const zuros_motor_transformation::differential::ConstPtr &msg)
 {
   try
-    {  
-    // Base is nonholonomic, warn if sent a command we can't execute
-    if (msg->linear.y || msg->linear.z || msg->angular.x || msg->angular.y)
     {
-      ROS_WARN("It is not possible for me to translate this command to the robot - maybe you set the base type in navigation config to holonomic instead of nonholonomic or vice versa?");
-      return;
-    }
 
-    if(isnan(msg->linear.x) || isnan(msg->angular.z) || isinf(msg->linear.x) || isinf(msg->angular.z))
+    if(isnan(msg->left_motor_speed) || isnan(msg->right_motor_speed))
     {
       ROS_WARN("I cant travel at infinite speed. Sorry");
       return;
     }
 
-    // Calculate wheel velocities
-    double vel_linear = msg->linear.x/(wheel_diameter_/2);
-    double vel_angular = msg->angular.z * (wheel_base_/wheel_diameter_);
-
-    double vel_left = vel_linear - vel_angular;
-    double vel_right = vel_linear + vel_angular;
-
     // Actuate
     if(!emergency_)
     {
-      left_motor_->setSpeed(vel_left);
-      right_motor_->setSpeed(vel_right);
-      ROS_DEBUG_STREAM("Base velocity set to [" << vel_left << ", " << vel_right << "]");
+      left_motor_->setSpeed(msg->left_motor_speed);
+      right_motor_->setSpeed(msg->right_motor_speed);
+      ROS_DEBUG_STREAM("Base velocity set to [" << msg->left_motor_speed << ", " << msg->right_motor_speed << "]");
     }
 
     // Emergency stop is issued, but we are still allowed to drive backwards with the laser on the front of the robot
     else
     {
       // Want to drive backwards (maybe joystick override to get stuck robot unstuck?) ?
-      if((vel_left < 0 && vel_right < 0) || (vel_left == 0 && vel_right == 0))
+      if((msg->left_motor_speed < 0 && msg->right_motor_speed < 0) || (msg->left_motor_speed == 0 && msg->right_motor_speed == 0))
       {
-        left_motor_->setSpeed(vel_left);
-        right_motor_->setSpeed(vel_right);
+        left_motor_->setSpeed(msg->left_motor_speed);
+        right_motor_->setSpeed(msg->right_motor_speed);
       }
 
       // Does not want to drive backwards, command ignored
@@ -263,7 +251,7 @@ void DPR2Base::odometryPublish()
   }
 
   catch (int e)
-    {
-      ROS_INFO("An exception occurred in odometry publish");
-    }
+  {
+    ROS_ERROR("An exception occurred in odometry publish %i", e);
+  }
 }

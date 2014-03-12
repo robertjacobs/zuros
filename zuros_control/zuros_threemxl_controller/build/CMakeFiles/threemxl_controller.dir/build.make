@@ -98,6 +98,8 @@ CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o: /opt/ros/
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o: /opt/ros/hydro/share/nav_msgs/package.xml
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o: /opt/ros/hydro/share/shared_serial/package.xml
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o: /opt/ros/hydro/share/threemxl/package.xml
+CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/manifest.xml
+CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o -c /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/threemxl_controller_main.cpp
@@ -171,6 +173,8 @@ CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o: /opt/ros/hydro
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o: /opt/ros/hydro/share/nav_msgs/package.xml
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o: /opt/ros/hydro/share/shared_serial/package.xml
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o: /opt/ros/hydro/share/threemxl/package.xml
+CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/manifest.xml
+CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o -c /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/threemxl_controller.cpp

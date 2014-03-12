@@ -4,6 +4,7 @@
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o
  ../src/include/zuros_threemxl_controller/threemxl_controller.h
  /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/threemxl_controller.cpp
+ /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/differential.h
  /opt/ros/hydro/include/XmlRpcDecl.h
  /opt/ros/hydro/include/XmlRpcValue.h
  /opt/ros/hydro/include/geometry_msgs/Point.h
@@ -128,6 +129,7 @@ CMakeFiles/threemxl_controller.dir/src/threemxl_controller.cpp.o
 CMakeFiles/threemxl_controller.dir/src/threemxl_controller_main.cpp.o
  ../src/include/zuros_threemxl_controller/threemxl_controller.h
  /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/src/threemxl_controller_main.cpp
+ /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include/zuros_motor_transformation/differential.h
  /opt/ros/hydro/include/XmlRpcDecl.h
  /opt/ros/hydro/include/XmlRpcValue.h
  /opt/ros/hydro/include/geometry_msgs/Point.h

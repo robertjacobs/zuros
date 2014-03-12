@@ -15,7 +15,7 @@
   <depend package="std_msgs"/>
   <depend package="nav_msgs"/>
   <depend package="threemxl"/>
-
+  <depend package="zuros_motor_transformation"/>
 </package>
 
 
