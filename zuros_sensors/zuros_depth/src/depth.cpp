@@ -11,29 +11,12 @@ XtionToLaser::XtionToLaser(ros::NodeHandle nh, double min_range, double max_rang
   h_degrees_ = h_degrees;
 }
 
-// Destructor
-XtionToLaser::~XtionToLaser()
-{
-	if (it_ != 0)
-        delete it_;
-	if (sync_input_ != 0)
-    	delete sync_input_;
-}
-
 void XtionToLaser::init()
 {
-	it_ = 0;
-	sync_input_ = 0;
-
-	//Subscribe to image color and depth points
-	it_ = new image_transport::ImageTransport(node_handle_);
-	colorimage_sub_.subscribe(*it_, "/camera/rgb/image_raw", 1);
-	pointcloud_sub_.subscribe(node_handle_, "/camera/depth_registered/points", 1);
-
-	// Synchronize
-	sync_input_ = new message_filters::Synchronizer<message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::PointCloud2> >(30);
-	sync_input_->connectInput(colorimage_sub_, pointcloud_sub_);
-	sync_input_->registerCallback(boost::bind(&XtionToLaser::inputCallback, this, _1, _2));
+  // Subscribe to depth points topic
+  //points_subscriber_ = node_handle_.subscribe("/camera/depth_registered/points", 100, &inputCallback);
+	 
+  points_subscriber_ = node_handle_.subscribe("/camera/depth_registered/points", 100, &XtionToLaser::inputCallback, this);
 
 	/**
 	* The advertise() function is how you tell ROS that you want to
@@ -47,31 +30,12 @@ void XtionToLaser::init()
 	* all copies of the returned Publisher object are destroyed, the topic
 	* will be automatically unadvertised.
 	*/
-	laser_publisher_ = node_.advertise<sensor_msgs::LaserScan>("scan", 10);
-}
-
-void XtionToLaser::convertColorImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image)
-{
-	try
-	{
-	    image_ptr = cv_bridge::toCvShare(image_msg, sensor_msgs::image_encodings::BGR8);
-	}
-	catch (cv_bridge::Exception& e)
-	{
-	    ROS_ERROR("zuros_depth: cv_bridge exception: %s", e.what());
-	}
-	
-	image = image_ptr->image;
+	laser_publisher_ = node_handle_.advertise<sensor_msgs::LaserScan>("scan", 10);
 }
 
 // Handles callback
-void XtionToLaser::inputCallback(const sensor_msgs::Image::ConstPtr& color_image_msg, const sensor_msgs::PointCloud2::ConstPtr& pointcloud_msg)
+void XtionToLaser::inputCallback(const sensor_msgs::PointCloud2::ConstPtr& pointcloud_msg)
 {
-  // convert color image to cv::Mat
-	cv_bridge::CvImageConstPtr color_image_ptr;
-	cv::Mat color_image;
-	convertColorImageMessageToMat(color_image_msg, color_image_ptr, color_image);
-
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
 	pcl::fromROSMsg(*pointcloud_msg, *cloud);
 	
@@ -84,12 +48,14 @@ void XtionToLaser::inputCallback(const sensor_msgs::Image::ConstPtr& color_image
 	msg.header = pointcloud_msg->header;
 	msg.header.frame_id = "camera_link";
 
-	// Asus xtion angles: 58° H, 45° V, 70° D (Horizontal, Vertical, Diagonal)
+	// Asus xtion angles: 58Â° H, 45Â° V, 70Â° D (Horizontal, Vertical, Diagonal)
   // Calculate opening
   // if h_degrees = 58 (xtion) opening is -29 to 29 with 0 as center
   double opening = h_degrees_ / 2;
-	msg.angle_min = -opening/180.*CV_PI;			// -29 .. 0 .. 29 for xtion
-	msg.angle_max = opening/180.*CV_PI;				// -29 .. 0 .. 29 for xtion
+	msg.angle_min = -29/180.*CV_PI;			// -29 .. 0 .. 29 for xtion
+	msg.angle_max = 29/180.*CV_PI;				// -29 .. 0 .. 29 for xtion
+
+  
 	msg.angle_increment = 0.090625/180.*CV_PI;  // 2*alpha/640
 
 	msg.time_increment = 0;		// sensor is not moving so value is 0
@@ -130,3 +96,4 @@ void XtionToLaser::inputCallback(const sensor_msgs::Image::ConstPtr& color_image
 	//publish on topic
 	laser_publisher_.publish(msg);
 }
+

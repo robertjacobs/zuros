@@ -6,7 +6,7 @@
 	<!-- TODO: find out a way to provide a negative z-axis number to the costmap -->
 
 	<!-- Format: x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_scan" args="0.2745 -0.035 0 0 0 135.1 /base_link /camera_link 100"/>
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_scan" args="0.2745 -0.035 0 0 0 0 /base_link /camera_link 100"/>
 
 	<!-- launch openni -->
 	<include file="$(find openni2_launch)/launch/openni2.launch" />
@@ -19,9 +19,9 @@
     <remap from="image" to="/camera/depth/image_raw"/>
   </node>-->
 
-  <node pkg="zuros_depth" type="depth" name="depth_node" output="screen">
-    <param name="min_range" value="0.8" />
-    <param name="max_range" value="3.5" />
-    <param name="h_degrees" value="58.0" />
-  </node>
+  <param name="min_range" value="0.8" />
+  <param name="max_range" value="3.5" />
+  <param name="h_degrees" value="58.0" />
+
+  <node pkg="zuros_depth" type="depth" name="depth_node" output="screen"/>
 </launch>

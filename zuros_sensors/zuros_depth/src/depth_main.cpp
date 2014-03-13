@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     * You must call one of the versions of ros::init() before using any other
     * part of the ROS system.
     */
-    ros::init(argc, argv, "zuros_depth_depth_cpp");
+    ros::init(argc, argv, "zuros_depth");
 
     /**
     * NodeHandle is the main access point to communications with the ROS system.
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     */
 
     // This nodehandle functions in the local namespace (hence the tilde)
-    ros::NodeHandle n("~");
+    ros::NodeHandle n;
     double min_range = -1;
     double max_range = -1;
     double h_degrees = -1;
