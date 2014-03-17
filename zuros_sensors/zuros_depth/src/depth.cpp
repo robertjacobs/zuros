@@ -2,6 +2,7 @@
 #include <ros/ros.h>
 #include <zuros_depth/depth.h>
 #include <limits>
+#include <timer/timer.h>
 
 XtionToLaser::XtionToLaser(ros::NodeHandle nh, double min_range, double max_range, double h_degrees)
 {
@@ -13,10 +14,11 @@ XtionToLaser::XtionToLaser(ros::NodeHandle nh, double min_range, double max_rang
 
 void XtionToLaser::init()
 {
-  // Subscribe to depth points topic
-  //points_subscriber_ = node_handle_.subscribe("/camera/depth_registered/points", 100, &inputCallback);
-	 
-  points_subscriber_ = node_handle_.subscribe("/camera/depth_registered/points", 100, &XtionToLaser::inputCallback, this);
+  target_publishing_rate_ = 5.0;       // given in Hz
+  target_publishing_delay_ = ros::Duration(1.0 / target_publishing_rate_);
+  last_publishing_time_pcl_ = ros::Time::now();
+
+  points_subscriber_ = node_handle_.subscribe("/camera/depth_registered/points", 1, &XtionToLaser::inputCallback, this);
 
 	/**
 	* The advertise() function is how you tell ROS that you want to
@@ -30,70 +32,79 @@ void XtionToLaser::init()
 	* all copies of the returned Publisher object are destroyed, the topic
 	* will be automatically unadvertised.
 	*/
-	laser_publisher_ = node_handle_.advertise<sensor_msgs::LaserScan>("scan", 10);
+	laser_publisher_ = node_handle_.advertise<sensor_msgs::LaserScan>("scan", 1);
 }
 
 // Handles callback
 void XtionToLaser::inputCallback(const sensor_msgs::PointCloud2::ConstPtr& pointcloud_msg)
 {
-	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
-	pcl::fromROSMsg(*pointcloud_msg, *cloud);
+  if (target_publishing_rate_ != 0.0 && (ros::Time::now() - last_publishing_time_pcl_) > target_publishing_delay_)
+  {
+    Timer t;
+    t.start();
+
+	  pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+	  pcl::fromROSMsg(*pointcloud_msg, *cloud);
 	
-	// publish to laser scanner topic
-	// laser scanner format: http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html
-	// Asus xtion specs: http://www.asus.com/Multimedia/Xtion_PRO_LIVE/#specifications
-	sensor_msgs::LaserScan msg;
+	  // publish to laser scanner topic
+	  // laser scanner format: http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html
+	  // Asus xtion specs: http://www.asus.com/Multimedia/Xtion_PRO_LIVE/#specifications
+	  sensor_msgs::LaserScan msg;
 
-	// Fill message with data
-	msg.header = pointcloud_msg->header;
-	msg.header.frame_id = "camera_link";
+	  // Fill message with data
+	  msg.header = pointcloud_msg->header;
+	  msg.header.frame_id = "camera_link";
 
-	// Asus xtion angles: 58Â° H, 45Â° V, 70Â° D (Horizontal, Vertical, Diagonal)
-  // Calculate opening
-  // if h_degrees = 58 (xtion) opening is -29 to 29 with 0 as center
-  double opening = h_degrees_ / 2;
-	msg.angle_min = -29/180.*CV_PI;			// -29 .. 0 .. 29 for xtion
-	msg.angle_max = 29/180.*CV_PI;				// -29 .. 0 .. 29 for xtion
+	  // Asus xtion angles: 58Â° H, 45Â° V, 70Â° D (Horizontal, Vertical, Diagonal)
+    // Calculate opening
+    // if h_degrees = 58 (xtion) opening is -29 to 29 with 0 as center
+    double opening = h_degrees_ / 2;
+	  msg.angle_min = (opening * -1)/180.*CV_PI;			// -29 .. 0 .. 29 for xtion
+	  msg.angle_max = opening/180.*CV_PI;				// -29 .. 0 .. 29 for xtion
 
-  
-	msg.angle_increment = 0.090625/180.*CV_PI;  // 2*alpha/640
+    
+	  msg.angle_increment = 0.090625/180.*CV_PI;  // 2*alpha/640
 
-	msg.time_increment = 0;		// sensor is not moving so value is 0
-	msg.scan_time = 1/30;
+	  msg.time_increment = 0;		// sensor is not moving so value is 0
+	  msg.scan_time = 1/30;
 
-	// Set min and max range of the sensor
-	msg.range_min = min_range_;		  // default 0.8 meters
-	msg.range_max = max_range_;  		// default 3.5 meters
+	  // Set min and max range of the sensor
+	  msg.range_min = min_range_;		  // default 0.8 meters
+	  msg.range_max = max_range_;  		// default 3.5 meters
 
-	msg.ranges.resize(cloud->width, 0);
-	msg.intensities;		// If your device does not provide intensities, please leave the array empty.
+	  msg.ranges.resize(cloud->width, 0);
+	  msg.intensities;		// If your device does not provide intensities, please leave the array empty.
 
-	// range we want to look at is 238 - 242 (5 pixels with 240 as center)
-    float total;
-    int total_count;
-    for (unsigned int u=0; u<cloud->width; ++u)
-    {
-        total = 0;
-        total_count = 0;
-        for (unsigned int v=238; v<243; ++v)
-        {
-            pcl::PointXYZRGB& point = cloud->at(u,v);
-            //matrix indices: row y, column x!
+	  // range we want to look at is 238 - 242 (5 pixels with 240 as center)
+      float total;
+      int total_count;
+      for (unsigned int u=0; u<cloud->width; ++u)
+      {
+          total = 0;
+          total_count = 0;
+          for (unsigned int v=238; v<243; ++v)
+          {
+              pcl::PointXYZRGB& point = cloud->at(u,v);
+              //matrix indices: row y, column x!
 
-            if(point.z == point.z && point.x == point.x)    //test not a number
-            {
-                total += sqrt(point.z*point.z + point.x * point.x);
-                ++total_count;
-            }
-        }
-        float distance = total/(float)total_count;
-        if (distance < min_range_)
-            msg.ranges[u]= -std::numeric_limits<double>::infinity();
-        else
-            msg.ranges[u]=distance;
-    }
+              if(point.z == point.z && point.x == point.x)    //test not a number
+              {
+                  total += sqrt(point.z*point.z + point.x * point.x);
+                  ++total_count;
+              }
+          }
+          float distance = total/(float)total_count;
+          if (distance < min_range_)
+              msg.ranges[u]= -std::numeric_limits<double>::infinity();
+          else
+              msg.ranges[u]=distance;
+      }
 
-	//publish on topic
-	laser_publisher_.publish(msg);
+	  //publish on topic
+	  laser_publisher_.publish(msg);
+    std::cout << t.getElapsedTimeInMilliSec() << "\n";
+    t.stop();
+    last_publishing_time_pcl_ = ros::Time::now();
+  }
 }
 

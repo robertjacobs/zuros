@@ -50,6 +50,9 @@ class XtionToLaser
     float min_range_;
     float max_range_;
     float h_degrees_;
+    ros::Time last_publishing_time_pcl_;
+    ros::Duration target_publishing_delay_;
+    double target_publishing_rate_;
 
 	public:
 		XtionToLaser(ros::NodeHandle nh, double min_range, double max_range, double h_degrees);
