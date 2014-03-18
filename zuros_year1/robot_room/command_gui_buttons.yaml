@@ -3,4 +3,4 @@
 group1:
   group_name: navigation_goals
   component_name: base
-  buttons: [[stop,base,stop, True] , [home,base,home, True] , [goto kitchen,base,kitchen_fidge, True] , [goto door side, base, door_side, True] , [goto door front, base, door_front, True] , [goto table right offer, base, table_right_offer, True] , [goto table right unload, base, table_right_unload, True] , [goto table left offer, base, table_left_offer, True] , [goto table left unload, base, table_left_unload, True] , [goto charging station, base, charging_station, True]]
+  buttons: [[stop,base,stop, True] , [home,base,home, True] , [goto kitchen,base,kitchen_fridge, True] , [goto large sofa offer, base, large_sofa_offer, True] , [goto small sofa offer, base, small_sofa_offer, True] , [goto charging station, base, charging_station, True] , [goto door side, base, door_side, True] , [goto door front, base, door_front, True] ,  [goto table right unload, base, table_right_unload, True] , [goto table left offer, base, table_left_offer, True] , [goto table left unload, base, table_left_unload, True]]
