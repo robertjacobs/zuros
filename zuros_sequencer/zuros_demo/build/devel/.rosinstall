@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/robot/git/zuros/zuros_demo/build/devel/setup.sh
+    local-name: /home/robot/git/zuros/zuros_sequencer/zuros_demo/build/devel/setup.sh

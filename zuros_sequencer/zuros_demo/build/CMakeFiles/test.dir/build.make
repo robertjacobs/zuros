@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot/git/zuros/zuros_demo
+CMAKE_SOURCE_DIR = /home/robot/git/zuros/zuros_sequencer/zuros_demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot/git/zuros/zuros_demo/build
+CMAKE_BINARY_DIR = /home/robot/git/zuros/zuros_sequencer/zuros_demo/build
 
 # Utility rule file for test.
 
@@ -57,6 +57,6 @@ CMakeFiles/test.dir/clean:
 .PHONY : CMakeFiles/test.dir/clean
 
 CMakeFiles/test.dir/depend:
-	cd /home/robot/git/zuros/zuros_demo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot/git/zuros/zuros_demo /home/robot/git/zuros/zuros_demo /home/robot/git/zuros/zuros_demo/build /home/robot/git/zuros/zuros_demo/build /home/robot/git/zuros/zuros_demo/build/CMakeFiles/test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robot/git/zuros/zuros_sequencer/zuros_demo/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot/git/zuros/zuros_sequencer/zuros_demo /home/robot/git/zuros/zuros_sequencer/zuros_demo /home/robot/git/zuros/zuros_sequencer/zuros_demo/build /home/robot/git/zuros/zuros_sequencer/zuros_demo/build /home/robot/git/zuros/zuros_sequencer/zuros_demo/build/CMakeFiles/test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test.dir/depend
 

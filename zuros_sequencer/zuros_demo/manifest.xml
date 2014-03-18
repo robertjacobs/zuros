@@ -11,9 +11,7 @@
   <depend package="roscpp"/>
   <depend package="rospy"/>
   <depend package="std_msgs"/>
-  <depend package="sensor_msgs"/>
-  <depend package="geometry_msgs"/>
-
+  <depend package="zuros_command_to_robot_sender"/>
 </package>
 
 

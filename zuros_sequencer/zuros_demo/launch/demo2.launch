@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- these arguments should be set in your bashrc -->
+	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
+	
+	<!-- using the year1 package -->
+	<arg name="pkg_environment_config" default="$(find zuros_year1)"/>
+
+	<!-- launch environent sensors -->
+	<node pkg="zuros_environment_sensors" type="environment_sensors.py" name="$(anon environment_sensors_node)" cwd="node" respawn="false" output="screen" />
+
+	<!-- launch zwave poller -->
+	<node pkg="zuros_zwave_poller" type="zwave_poller.py" name="$(anon zwave_poller_node)" cwd="node" respawn="false" output="screen" />
+
+	<!-- start command_gui -->
+	<node ns="demo2" pkg="zuros_demo" type="demo2.py" name="$(anon demo2_node)" cwd="node" respawn="false" output="screen" >
+		<!-- upload button parameters, but delete the old ones before -->
+		<rosparam command="load" ns="nav_buttons" file="$(arg pkg_environment_config)/$(arg robot_env)/command_gui_buttons.yaml"/>
+		<rosparam command="load" ns="nav_positions" file="$(arg pkg_environment_config)/$(arg robot_env)/navigation_goals.yaml"/>
+	</node>
+</launch>
