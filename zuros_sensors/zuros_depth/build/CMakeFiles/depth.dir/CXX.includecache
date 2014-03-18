@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+../src/include/timer/timer.h
+sys/time.h
+-
+stdlib.h
+-
+
 ../src/include/zuros_depth/depth.h
 ros/ros.h
 ../src/include/zuros_depth/ros/ros.h
@@ -40,11 +46,15 @@ pcl_ros/point_cloud.h
 sensor_msgs/LaserScan.h
 -
 
-/home/robot/git/zuros/zuros_sensors/zuros_depth/src/depth_main.cpp
+/home/robot/git/zuros/zuros_sensors/zuros_depth/src/depth.cpp
 ros/ros.h
-/home/robot/git/zuros/zuros_sensors/zuros_depth/src/ros/ros.h
+-
 zuros_depth/depth.h
-/home/robot/git/zuros/zuros_sensors/zuros_depth/src/zuros_depth/depth.h
+-
+limits
+-
+timer/timer.h
+-
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h
