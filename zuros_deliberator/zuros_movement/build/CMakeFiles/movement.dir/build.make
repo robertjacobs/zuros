@@ -98,8 +98,9 @@ CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/share/tf/package
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/share/nav_msgs/package.xml
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/share/shared_serial/package.xml
 CMakeFiles/movement.dir/src/movement_main.cpp.o: /opt/ros/hydro/share/threemxl/package.xml
-CMakeFiles/movement.dir/src/movement_main.cpp.o: /home/robot/git/zuros/zuros_control/zuros_threemxlController/manifest.xml
-CMakeFiles/movement.dir/src/movement_main.cpp.o: /home/robot/git/zuros/zuros_control/zuros_threemxlController/msg_gen/generated
+CMakeFiles/movement.dir/src/movement_main.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/manifest.xml
+CMakeFiles/movement.dir/src/movement_main.cpp.o: /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/manifest.xml
+CMakeFiles/movement.dir/src/movement_main.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_deliberator/zuros_movement/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/movement.dir/src/movement_main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/movement.dir/src/movement_main.cpp.o -c /home/robot/git/zuros/zuros_deliberator/zuros_movement/src/movement_main.cpp
@@ -173,8 +174,9 @@ CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/share/nav_msgs/package.xml
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/share/shared_serial/package.xml
 CMakeFiles/movement.dir/src/movement.cpp.o: /opt/ros/hydro/share/threemxl/package.xml
-CMakeFiles/movement.dir/src/movement.cpp.o: /home/robot/git/zuros/zuros_control/zuros_threemxlController/manifest.xml
-CMakeFiles/movement.dir/src/movement.cpp.o: /home/robot/git/zuros/zuros_control/zuros_threemxlController/msg_gen/generated
+CMakeFiles/movement.dir/src/movement.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/manifest.xml
+CMakeFiles/movement.dir/src/movement.cpp.o: /home/robot/git/zuros/zuros_control/zuros_threemxl_controller/manifest.xml
+CMakeFiles/movement.dir/src/movement.cpp.o: /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/robot/git/zuros/zuros_deliberator/zuros_movement/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/movement.dir/src/movement.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/movement.dir/src/movement.cpp.o -c /home/robot/git/zuros/zuros_deliberator/zuros_movement/src/movement.cpp

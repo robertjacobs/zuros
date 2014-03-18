@@ -39,7 +39,6 @@
 #include "ros/ros.h"
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/Joy.h>
-#include <zuros_threemxlController/motorMSG.h>
 #include <ros/callback_queue.h>
 
 class Movement
@@ -48,8 +47,8 @@ class Movement
     Movement(ros::NodeHandle nh);
     void init();
     void spin();
-    void callbackCmdVel(const geometry_msgs::Twist::ConstPtr& msg);
-    void callbackJoy(const sensor_msgs::Joy::ConstPtr& msg);
+    void callback_cmd_vel(const geometry_msgs::Twist::ConstPtr& msg);
+    void callback_joy(const sensor_msgs::Joy::ConstPtr& msg);
   private:
     bool joystick_override_;
     bool joystick_override_was_active_;

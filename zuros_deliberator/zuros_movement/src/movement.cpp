@@ -48,11 +48,11 @@ Movement::Movement(ros::NodeHandle nh)
 void Movement::init()
 {
   // Create a publisher
-  publisher_cmd_vel_mov_ = nh_.advertise<geometry_msgs::Twist>("/movement", 100);
+  publisher_cmd_vel_mov_ = nh_.advertise<geometry_msgs::Twist>("/movement", 1);
   
   // Subscribe to topics
-  subscriber_cmd_vel_ = nh_.subscribe("/cmd_vel", 100, &Movement::callback_cmd_vel, this);
-  subscriber_joy_ = nh_.subscribe("/joy", 100, &Movement::callback_joy, this);
+  subscriber_cmd_vel_ = nh_.subscribe("/cmd_vel", 1, &Movement::callback_cmd_vel, this);
+  subscriber_joy_ = nh_.subscribe("/joy", 1, &Movement::callback_joy, this);
   
   // Set initial parameters
   joystick_override_ = false;
@@ -106,7 +106,7 @@ void Movement::spin()
 /** Callback function for the cmd_vel topic
 *   @param msg The message on the topic
 */ 
-void Movement::callbackCmdVel(const geometry_msgs::Twist::ConstPtr& msg)
+void Movement::callback_cmd_vel(const geometry_msgs::Twist::ConstPtr& msg)
 {
   // If there is a joystick override, it would not make sense to send cmd_vel data on the movement topic
   if(!joystick_override_)
@@ -119,7 +119,7 @@ void Movement::callbackCmdVel(const geometry_msgs::Twist::ConstPtr& msg)
 /** Callback function for the joy topic
 *   @param msg The message on the topic
 */ 
-void Movement::callbackJoy(const sensor_msgs::Joy::ConstPtr& msg)
+void Movement::callback_joy(const sensor_msgs::Joy::ConstPtr& msg)
 {
   // User override pressed and not in user override mode will print out the message
   if(msg->buttons[5] == 1 && !joystick_override_)

@@ -11,7 +11,7 @@ SET(CMAKE_FORCE_UNIX_PATHS 1)
 # The C and CXX include file search paths:
 SET(CMAKE_C_INCLUDE_PATH
   "/home/robot/git/zuros/zuros_deliberator/zuros_movement/include"
-  "/home/robot/git/zuros/zuros_control/zuros_threemxlController/msg_gen/cpp/include"
+  "/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/msg_gen/cpp/include"
   "/opt/ros/hydro/include"
   "/usr/src/gtest/include"
   "/usr/src/gtest"
