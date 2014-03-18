@@ -52,13 +52,13 @@ void DPR2Base::init(std::string config_file_location)
 
   emergency_ = false;
   // Subscribe to emergency topic
-  emergency_sub_ = nh_.subscribe("/emergency_stop", 10, &DPR2Base::emergencyCallback, this);
+  emergency_sub_ = nh_.subscribe("/emergency_stop", 1, &DPR2Base::emergencyCallback, this);
 
   // Subscribe to movement topic
   vel_sub_ = nh_.subscribe("/motor_transformation_differential", 10, &DPR2Base::velocityCallback, this);
 
   // For the ROS navigation it is important to publish the odometry in the odom topic
-  odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
+  odom_pub_ = nh_.advertise<nav_msgs::Odometry>("/odom", 1);
 
   // The rate of retries in case of failure
   ros::Rate init_rate(1);
