@@ -45,9 +45,9 @@ class Database(object):
     
     ## Executes query and returns results
 	def execute_and_return(self, query):
-        cursor = self._db.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute(query)
-        return cursor.fetchall()
+		cursor = self._db.cursor(MySQLdb.cursors.DictCursor)
+		cursor.execute(query)
+		return cursor.fetchall()
 
 	## Updates sensor value in the database
 	def update_sensor_value(self, sensor):
