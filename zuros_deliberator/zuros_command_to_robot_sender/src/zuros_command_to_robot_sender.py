@@ -34,6 +34,8 @@ This will make sure that the commands, as instructed by the user using the comma
 
 import roslib; roslib.load_manifest('zuros_command_to_robot_sender')
 import rospy
+import tf
+import math
 import actionlib
 
 import thread
@@ -106,7 +108,7 @@ class CommandToRobotSender(object):
         
         # Position is known
         if(nav_pos != None):
-            rospy.loginfo("Move <<%s>> to <<[x,y,z] %d, %d, %d>>", component_name, nav_pos[0], nav_pos[1], nav_pos[2])
+            rospy.loginfo("Move <<%s>> to <<[x,y,yaw] %d, %d, %d>>", component_name, nav_pos[0], nav_pos[1], nav_pos[2])
         
         # Position is not known
         else:
@@ -120,10 +122,13 @@ class CommandToRobotSender(object):
         pose.pose.position.x = nav_pos[0]
         pose.pose.position.y = nav_pos[1]
         pose.pose.position.z = 0
-        pose.pose.orientation.x = 0
-        pose.pose.orientation.y = 0
-        pose.pose.orientation.z = 0
-        pose.pose.orientation.w = nav_pos[2]
+
+        quat = tf.transformations.quaternion_from_euler(0, 0, nav_pos[2])
+
+        pose.pose.orientation.x = quat[0]
+        pose.pose.orientation.y = quat[1]
+        pose.pose.orientation.z = quat[2]
+        pose.pose.orientation.w = quat[3]
 
         rospy.logdebug("waiting for move_base action server to start")
         # Error: server did not respond within given time
