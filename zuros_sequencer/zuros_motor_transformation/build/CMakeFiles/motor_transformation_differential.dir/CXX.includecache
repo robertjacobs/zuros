@@ -44,12 +44,6 @@ zuros_motor_transformation/motor_transformation_differential.h
 zuros_motor_transformation/differential.h
 /home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/src/zuros_motor_transformation/differential.h
 
-/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/src/motor_transformation_differential_main.cpp
-ros/ros.h
-/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/src/ros/ros.h
-zuros_motor_transformation/motor_transformation_differential.h
-/home/robot/git/zuros/zuros_sequencer/zuros_motor_transformation/src/zuros_motor_transformation/motor_transformation_differential.h
-
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h
 -

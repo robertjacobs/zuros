@@ -43,10 +43,10 @@ void MotorTransformationDifferential::init()
   ROS_INFO("Initializing motor_transformation");
 
   // Subscribe to movement topic
-  movement_sub_ = nh_.subscribe("/movement", 10, &MotorTransformationDifferential::velocityCallback, this);
+  movement_sub_ = nh_.subscribe("/movement", 1, &MotorTransformationDifferential::velocityCallback, this);
 
   // Create differential publisher
-  publisher_differential_ = nh_.advertise<zuros_motor_transformation::differential>("/motor_transformation_differential", 100);
+  publisher_differential_ = nh_.advertise<zuros_motor_transformation::differential>("/motor_transformation_differential", 1);
 }
 
 /** Called when a new velocity command is published and sends the new velocity to the base motors
