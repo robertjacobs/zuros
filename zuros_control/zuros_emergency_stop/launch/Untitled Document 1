@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+	<node ns="emergency_stop" pkg="zuros_emergency_stop" type="emergency_stop.py" name="$(anon emergency_stop_node)" cwd="node" respawn="false" output="screen"/>
+</launch>
