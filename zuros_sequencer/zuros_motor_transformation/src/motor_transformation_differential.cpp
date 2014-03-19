@@ -64,6 +64,7 @@ void MotorTransformationDifferential::velocityCallback(const geometry_msgs::Twis
       return;
     }
 
+	// Check not a number
     if(isnan(msg->linear.x) || isnan(msg->angular.z) || isinf(msg->linear.x) || isinf(msg->angular.z))
     {
       ROS_WARN("I cant travel at infinite speed. Sorry");
