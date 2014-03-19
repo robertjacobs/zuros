@@ -13,7 +13,7 @@
 	<!-- launch zwave poller -->
 	<node pkg="zuros_zwave_poller" type="zwave_poller.py" name="$(anon zwave_poller_node)" cwd="node" respawn="false" output="screen" />
 
-	<!-- start command_gui -->
+	<!-- start demo 2 -->
 	<node ns="demo2" pkg="zuros_demo" type="demo2.py" name="$(anon demo2_node)" cwd="node" respawn="false" output="screen" >
 		<!-- upload button parameters, but delete the old ones before -->
 		<rosparam command="load" ns="nav_buttons" file="$(arg pkg_environment_config)/$(arg robot_env)/command_gui_buttons.yaml"/>
