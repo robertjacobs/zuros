@@ -3,8 +3,8 @@
 #Format: [name] : [[x],[y],[theta]]
 home: [0, 0, 0]
 kitchen_fridge: [4.663, 1.0, -1.026]
-large_sofa_offer: [-0.6, 2.5, 0.488]
-small_sofa_offer: [1.6, 1.9, 3.124]
+large_sofa_offer: [-1.0, 3.25, 0.488]
+small_sofa_offer: [1.6, 1.95, 3.124]
 charging_station: [-1.25,1.5,0]
 
 # Not used in demo
