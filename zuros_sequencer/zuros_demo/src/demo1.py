@@ -105,7 +105,7 @@ class Demo1(object):
 
     ## Turn right function
     # Will command the motors to turn right
-    def turn_right(self):
+    def turn_right(self,speed):
         # create a twist message, fill in the details
         twist = Twist()
         twist.linear.x = 0;                         # no forward or backward speed
@@ -184,5 +184,5 @@ class Demo1(object):
 ## Check if this is a class call or a program call
 if __name__ == '__main__':
     demo1 = Demo1()
-    demo1.run(0.2)
+    demo1.run(0.4)
     rospy.spin()
