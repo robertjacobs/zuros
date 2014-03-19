@@ -3,6 +3,9 @@
 	<!-- launch xtion laser scan -->
 	<include file="$(find zuros_depth)/launch/depth.launch" />
 
+	<!-- launch emergency stop -->
+	<include file="$(find zuros_emergency_stop)/launch/emergency_stop.launch" />
+
 	<!-- launch joystick -->
   <include file="$(find zuros_ROS_joy)/launch/joy.launch" />
 
