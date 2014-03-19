@@ -29,8 +29,8 @@
 # Author Robert Jacobs/info@rjpjacobs.nl
 
 """
-This will check the scan topic and looks if there are a lot of NaN (Not a Number) values 
-If there are too much NaN's, there is probably an object near -> emergency stop
+This will check the scan topic and looks if there are any -inf (minus infinite) values 
+If there are too much -infs there is probably an object nearby -> emergency stop
 """
 
 import roslib; roslib.load_manifest('zuros_emergency_stop')
@@ -58,11 +58,11 @@ class EmergencyChecker(object):
             if(math.isinf(data.ranges[r])):
                 self.inf_count = self.inf_count + 1
 
-        if(self.inf_count >= 5 and self.emergency_stop == False):
+        if(self.inf_count >= 2 and self.emergency_stop == False):
             self.emergency_stop = True            
             rospy.loginfo("EMERGENCY STOP ISSUED")
         else:
-            if(self.inf_count < 5 and self.emergency_stop == True):
+            if(self.inf_count < 2 and self.emergency_stop == True):
               self.emergency_stop = False
               rospy.loginfo("EMERGENCY STOP RELEASED")
 
@@ -70,8 +70,7 @@ class EmergencyChecker(object):
 
 ## Check if this is a class call or a program call
 if __name__ == '__main__':
-    rospy.init_node('emergency_scanner', anonymous=True)
-
+    rospy.init_node('emergency_scanner', anonymous=False)
     # Start
     emc = EmergencyChecker()
     rospy.Subscriber("scan", LaserScan, emc.callback_scan)
