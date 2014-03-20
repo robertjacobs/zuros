@@ -33,8 +33,8 @@
 *  Author Robert Jacobs/info@rjpjacobs.nl
 *********************************************************************/
 
-#ifndef __DPR2_BASE_H
-#define __DPR2_BASE_H
+#ifndef __THREEMXL_CONTROLLER_H
+#define __THREEMXL_CONTROLLER_H
 
 /** @brief Node for controlling and reading threemxl motor controller.
 
@@ -130,5 +130,5 @@ public:
   void spin();
 };
 
-#endif /* __DPR2_BASE_H */
+#endif /* __THREEMXL_CONTROLLER_H */
 

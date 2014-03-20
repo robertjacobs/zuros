@@ -17,6 +17,7 @@ class SensorsInDatabase(object):
 		query = "SELECT * FROM %s" % self._sensorTable
 		return self._sql.execute_and_return(query)
 	
+	## Gets the value based on communication id
 	def get_value_by_communication_id(self, communication_id):
 		query = "SELECT value FROM %s WHERE communication_id = '%s';" % (self._sensorTable, communication_id)
 		return self._sql.execute_and_return(query)
