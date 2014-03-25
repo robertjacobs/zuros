@@ -35,7 +35,7 @@ Think of a user which has problems carrying things around the house. Maybe this 
 
 The first task is to check if the user opened the fridge door (zwave sensor on the fridge door). If the user did, the robot heads to the user to try and assist him. The user can now place a drink in the special holder on the front of the robot. In this holder there is a switch (zwave network switch). When the user places a bottle in the holder, the bottle presses against the switch. This way the robot knows when there is drink placed. 
 If the user then heads back to the large sofa or the small sofa and sits on it, the pressure pads (zwave enabled) detect a pressure (the user sitting on it) and then the robot knows where to head. Based on the user location the robot either drives to the small sofa or the large sofa.
-While at one of the two sofas the robot waits for the user to remove the bottle from the holder. As soon as the user did the robot heads back to the “charging station” location.
+While at one of the two sofas the robot waits for the user to remove the bottle from the holder. As soon as the user did the robot heads back to the charging station location.
 """
 
 import roslib
