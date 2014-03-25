@@ -184,7 +184,7 @@ class Demo1(object):
 ## Check if this is a class call or a program call
 if __name__ == '__main__':
 	rospy.loginfo("Starting demo")
-    demo1 = Demo1()
-    demo1.run(0.4)
-    rospy.spin()
+	demo1 = Demo1()
+	demo1.run(0.4)
+	rospy.spin()
 	rospy.loginfo("Demo stopped..")
