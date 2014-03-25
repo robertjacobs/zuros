@@ -58,11 +58,11 @@ class EmergencyChecker(object):
             if(math.isinf(data.ranges[r])):
                 self.inf_count = self.inf_count + 1
 
-        if(self.inf_count >= 2 and self.emergency_stop == False):
+        if(self.inf_count >= 5 and self.emergency_stop == False):
             self.emergency_stop = True            
             rospy.loginfo("EMERGENCY STOP ISSUED")
         else:
-            if(self.inf_count < 2 and self.emergency_stop == True):
+            if(self.inf_count < 5 and self.emergency_stop == True):
               self.emergency_stop = False
               rospy.loginfo("EMERGENCY STOP RELEASED")
 
