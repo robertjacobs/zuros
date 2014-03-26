@@ -13,6 +13,7 @@
   <depend package="geometry_msgs"/>
   <depend package="tf"/>
   <depend package="rbx1_nav"/>
+  <depend package="zuros_motor_transformation"/>
 </package>
 
 
