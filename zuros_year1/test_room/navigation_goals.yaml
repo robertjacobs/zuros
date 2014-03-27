@@ -1,0 +1,9 @@
+# Add your own navigation goals
+# If you add a new command button in command_gui_buttons.yaml and it is related to a move base command, make sure that you add the position here. Otherwise the software will throw an error that the position you are trying to send is unknown
+#Format: [name] : [[x],[y],[theta]]
+home: [0, 0, 0]
+middle: [1.0, 1.0, 0]
+charging_station: [-1.25,1.5,0]
+door_side: [0.943, -0.696, -2.356]
+door_front: [0.015, -0.074, -1.536]
+

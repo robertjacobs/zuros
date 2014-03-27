@@ -1,0 +1,6 @@
+# Add your own control buttons here.
+# Format: [title],[component],[action/position]
+group1:
+  group_name: navigation_goals
+  component_name: base
+  buttons: [[stop,base,stop, True] , [home,base,home, True] , [goto middle,base,middle, True] , [goto charging station, base, charging_station, True] , [goto door side, base, door_side, True] , [goto door front, base, door_front, True]]
