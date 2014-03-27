@@ -37,6 +37,7 @@ This file was made to proof that the system is able to work with other platforms
 
 import rospy
 import roslib; roslib.load_manifest('zuros_test')
+from zuros_motor_transformation.msg import differential
 
 class MotorEmulator():
     def __init__(self):
@@ -46,33 +47,34 @@ class MotorEmulator():
         # Set rospy to execute a shutdown function when exiting       
         rospy.on_shutdown(self.shutdown)
 
-		# Prevents terminal spam
-		self.stopped = False
+        # Prevents terminal spam
+        self.stopped = False
         
     def shutdown(self):
         # Always stop the robot when shutting down the node.
         rospy.loginfo("Stopping the robot...")
-		rospy.loginfo("I would send a stop command to the robot")
+        rospy.loginfo("I would send a stop command to the robot")
         rospy.sleep(1)
 
-	def callback_differential(self,msg):
-		if(msg.left_motor_speed > 0 and msg.left_motor_speed > 0):
-			self.stopped = False
-			rospy.loginfo("Forward")
-		elif(msg.left_motor_speed < 0 and msg.left_motor_speed < 0):
-			self.stopped = False
-			rospy.loginfo("Backward")
-		elif(msg.left_motor_speed < 0 and msg.left_motor_speed > 0):
-			self.stopped = False
-			rospy.loginfo("Left")
-		elif(msg.left_motor_speed > 0 and msg.left_motor_speed < 0):
-			self.stopped = False
-			rospy.loginfo("Right")
-		else:
-			if(self.stopped == False):
-				rospy.loginfo("Motors stop")
-				self.stopped = True
+    def callback_differential(self,msg):
+        if(msg.left_motor_speed > 0 and msg.right_motor_speed > 0):
+            self.stopped = False
+            rospy.loginfo("Forward")
+        elif(msg.left_motor_speed < 0 and msg.right_motor_speed < 0):
+            self.stopped = False
+            rospy.loginfo("Backward")
+        elif(msg.left_motor_speed < 0 and msg.right_motor_speed > 0):
+            self.stopped = False
+            rospy.loginfo("Left")
+        elif(msg.left_motor_speed > 0 and msg.right_motor_speed < 0):
+            self.stopped = False
+            rospy.loginfo("Right")
+        else:
+            if(self.stopped == False):
+                rospy.loginfo("Motors stop")
+                self.stopped = True
  
 if __name__ == '__main__':
 	motor_emulator = MotorEmulator()
-	rospy.Subscriber("/motor_transformation_differential", Differential, motor_emulator.callback_differential)
+	rospy.Subscriber("/motor_transformation_differential", differential, motor_emulator.callback_differential)
+	rospy.spin()
